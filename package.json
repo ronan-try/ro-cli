@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronan-try/ro-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ronan-try/ro-cli/issues"
+  },
+  "homepage": "https://github.com/ronan-try/ro-cli#readme"
+}
