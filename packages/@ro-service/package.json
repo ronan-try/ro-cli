@@ -1,5 +1,5 @@
 {
-  "name": "@ro/cli-service",
+  "name": "@ro/service",
   "version": "1.0.0",
   "description": "@ro/cli do sm services",
   "private": true,
@@ -7,7 +7,13 @@
     "lib",
     "src"
   ],
+  "main": "index.ts",
+  "publishConfig": {
+    "main": "lib/es/index.js",
+    "typings": "lib/index.d.ts"
+  },
   "scripts": {
+    "publish": "pnpm publish",
     "build": "rollup -c",
     "test": "jest"
   },
@@ -19,10 +25,5 @@
   "license": "MIT",
   "dependencies": {
     "shelljs": "^0.8.4"
-  },
-  "devDependencies": {
-    "@types/jest": "^26.0.22",
-    "@types/shelljs": "^0.8.8",
-    "jest": "^26.6.3"
   }
 }

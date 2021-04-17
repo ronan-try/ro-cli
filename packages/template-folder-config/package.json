@@ -1,5 +1,5 @@
 {
-  "name": "template",
+  "name": "@ro/template",
   "version": "1.0.0",
   "description": "@ro/cli do sm services",
   "private": true,

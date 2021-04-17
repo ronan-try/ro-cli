@@ -33,7 +33,7 @@ function chunk (input, name) {
   configs.push({
     input: pathResolve('./src/', `${input}.ts`),
     output: {
-      file: pathResolve('./lib/umd/', `${name}.d.ts`),
+      file: pathResolve('./lib/', `${name}.d.ts`),
       format: 'es',
     },
     plugins: [dts()],
@@ -111,7 +111,7 @@ export default [
   {
     input: path.resolve(`./index.ts`),
     output: {
-      file: path.resolve(`./lib/umd/index.d.ts`),
+      file: path.resolve(`./lib/index.d.ts`),
       format: 'es',
     },
     plugins: [dts()],
