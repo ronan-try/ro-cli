@@ -12,7 +12,6 @@
 		"typings": "lib/index.d.ts"
 	},
 	"scripts": {
-		"publish": "pnpm publish",
 		"build": "rollup -c",
 		"test": "jest"
 	},
