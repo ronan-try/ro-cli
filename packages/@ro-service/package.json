@@ -16,5 +16,11 @@
     "service"
   ],
   "author": "Ronan",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "@types/shelljs": "^0.8.8"
+  }
 }
