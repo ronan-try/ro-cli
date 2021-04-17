@@ -1,11 +1,10 @@
 import * as vscode from 'vscode';
+import commandRegister from './commandRegister';
 
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand('rocli.helloWorld', () => {
-		vscode.window.showInformationMessage('Hello World from rocli! 啊啊啊啊啊啊啊啊啊');
-	});
-
-	context.subscriptions.push(disposable);
+	commandRegister(context);
+	// to do
 }
 
-export function deactivate() {}
+// this method is called when your extension is deactivated
+export function deactivate() { }
