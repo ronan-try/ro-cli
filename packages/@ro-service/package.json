@@ -1,29 +1,29 @@
 {
-  "name": "@ro/service",
-  "version": "1.0.0",
-  "description": "@ro/cli do sm services",
-  "private": true,
-  "files": [
-    "lib",
-    "src"
-  ],
-  "main": "index.ts",
-  "publishConfig": {
-    "main": "lib/es/index.js",
-    "typings": "lib/index.d.ts"
-  },
-  "scripts": {
-    "publish": "pnpm publish",
-    "build": "rollup -c",
-    "test": "jest"
-  },
-  "keywords": [
-    "@ro/cli",
-    "service"
-  ],
-  "author": "Ronan",
-  "license": "MIT",
-  "dependencies": {
-    "shelljs": "^0.8.4"
-  }
+	"name": "@ro/service",
+	"version": "1.0.0",
+	"description": "@ro/cli do sm services",
+	"files": [
+		"lib",
+		"src"
+	],
+	"main": "lib/es/index.js",
+	"publishConfig": {
+		"main": "lib/es/index.js",
+		"typings": "lib/index.d.ts"
+	},
+	"scripts": {
+		"publish": "pnpm publish",
+		"build": "rollup -c",
+		"test": "jest"
+	},
+	"keywords": [
+		"@ro/cli",
+		"service"
+	],
+	"author": "Ronan",
+	"license": "MIT",
+	"dependencies": {
+		"shelljs": "^0.8.4"
+	},
+	"typings": "lib/index.d.ts"
 }
