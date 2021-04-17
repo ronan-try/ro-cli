@@ -21,6 +21,8 @@
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
-    "@types/shelljs": "^0.8.8"
+    "@types/jest": "^26.0.22",
+    "@types/shelljs": "^0.8.8",
+    "jest": "^26.6.3"
   }
 }

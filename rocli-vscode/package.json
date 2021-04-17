@@ -1,5 +1,5 @@
 {
-  "name": "rocli",
+	"name": "rocli",
 	"displayName": "rocli",
 	"description": "@ro/cli for vscode",
 	"version": "0.0.1",
@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:rocli.helloWorld"
+		"onCommand:rocli.helloWorld"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
