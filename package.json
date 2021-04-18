@@ -1,5 +1,4 @@
 {
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ronan-try/ro-cli.git"

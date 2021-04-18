@@ -12,7 +12,7 @@
 		"typings": "lib/index.d.ts"
 	},
 	"scripts": {
-		"publish": "pnpm publish --access=public --no-git-checks",
+		"publish": "pnpm publish --access public --no-git-checks",
 		"build": "rollup -c",
 		"test": "jest"
 	},
