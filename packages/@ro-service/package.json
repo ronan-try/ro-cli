@@ -1,6 +1,6 @@
 {
 	"name": "@ro/service",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "@ro/cli do sm services",
 	"files": [
 		"lib",
@@ -12,7 +12,7 @@
 		"typings": "lib/index.d.ts"
 	},
 	"scripts": {
-		"publish": "pnpm publish --access=public",
+		"publish": "pnpm publish --access=public --no-git-checks",
 		"build": "rollup -c",
 		"test": "jest"
 	},
