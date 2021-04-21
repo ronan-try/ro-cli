@@ -1,7 +1,11 @@
 {
-	"name": "@ro/service",
-	"version": "1.0.2",
+	"name": "@ronan-try/cli-service",
+	"version": "1.0.0",
 	"description": "@ro/cli do sm services",
+	"keywords": [
+		"@ro/cli",
+		"service"
+	],
 	"files": [
 		"lib",
 		"src"
@@ -12,14 +16,11 @@
 		"typings": "lib/index.d.ts"
 	},
 	"scripts": {
-		"publish": "pnpm publish --access public --no-git-checks",
+		"publish": "pnpm publish --access",
 		"build": "rollup -c",
 		"test": "jest"
 	},
-	"keywords": [
-		"@ro/cli",
-		"service"
-	],
+	
 	"author": "Ronan",
 	"license": "MIT",
 	"dependencies": {
