@@ -1,4 +1,4 @@
-# @ro/cli-shared-utils
+# ro-cli-shared-utils
 参考 lodash，将函数体平铺
 
 ## 打包后的文件在哪儿找

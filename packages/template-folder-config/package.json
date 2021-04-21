@@ -1,7 +1,7 @@
 {
   "name": "@ronan-try/template",
   "version": "1.0.0",
-  "description": "@ro/cli do sm services",
+  "description": "ro-cli do sm services",
   "files": [
     "lib",
     "src"
@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "keywords": [
-    "@ro/cli",
+    "ro-cli",
     "service"
   ],
   "author": "Ronan",

@@ -1,2 +1,2 @@
 # ro-cli
-@ro/cli for regular working 
+ro-cli for regular working 
