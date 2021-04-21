@@ -25,5 +25,8 @@
 		"shelljs": "^0.8.4"
 	},
 	"main": "lib/es/index.js",
-	"typings": "lib/index.d.ts"
+	"typings": "lib/index.d.ts",
+	"devDependencies": {
+		"@types/shelljs": "^0.8.8"
+	}
 }
