@@ -15,14 +15,15 @@
 		"typings": "lib/index.d.ts"
 	},
 	"scripts": {
-		"publish": "pnpm publish --access",
+		"publish": "pnpm publish --access public",
 		"build": "rollup -c",
 		"test": "jest"
 	},
-	
 	"author": "Ronan",
 	"license": "MIT",
 	"dependencies": {
 		"shelljs": "^0.8.4"
-	}
+	},
+	"main": "lib/es/index.js",
+	"typings": "lib/index.d.ts"
 }
