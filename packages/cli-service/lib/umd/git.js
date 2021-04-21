@@ -4,39 +4,21 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.git = {}, global.shelljs));
 }(this, (function (exports, shelljs) { 'use strict';
 
-  function _interopNamespace(e) {
-    if (e && e.__esModule) return e;
-    var n = Object.create(null);
-    if (e) {
-      Object.keys(e).forEach(function (k) {
-        if (k !== 'default') {
-          var d = Object.getOwnPropertyDescriptor(e, k);
-          Object.defineProperty(n, k, d.get ? d : {
-            enumerable: true,
-            get: function () {
-              return e[k];
-            }
-          });
-        }
-      });
-    }
-    n['default'] = e;
-    return Object.freeze(n);
-  }
+  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-  var shelljs__namespace = /*#__PURE__*/_interopNamespace(shelljs);
+  var shelljs__default = /*#__PURE__*/_interopDefaultLegacy(shelljs);
 
   /** current work path exists a git repo */
 
   const existGitRepo = workPath => new Promise(resolve => {
-    shelljs__namespace.exec('git status', {
+    shelljs__default['default'].exec('git status', {
       cwd: workPath,
       silent: true
     }, code => resolve(code === 0));
   });
 
   const factoryGitShell = (workPath, cmd) => new Promise(resolve => {
-    shelljs__namespace.exec(cmd, {
+    shelljs__default['default'].exec(cmd, {
       cwd: workPath,
       silent: true
     }, (code, stdout, stderr) => resolve({
