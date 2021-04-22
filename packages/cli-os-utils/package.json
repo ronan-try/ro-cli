@@ -1,0 +1,29 @@
+{
+  "name": "@ronan-try/cli-os-utils",
+  "version": "1.0.0",
+  "description": "ro-cli do cli-OS-utils",
+  "private": true,
+  "keywords": [
+    "ro-cli",
+    "cli-OS-utils"
+  ],
+  "files": [
+    "lib",
+    "src"
+  ],
+  "publishConfig": {
+    "main": "lib/es/index.js",
+    "typings": "lib/index.d.ts"
+  },
+  "scripts": {
+    "publish": "pnpm publish --access public",
+    "build": "rollup -c",
+    "test": "jest"
+  },
+  "author": "Ronan",
+  "license": "MIT",
+  "dependencies": {
+    "app-path": "^3.2.0",
+    "shelljs": "^0.8.4"
+  }
+}
