@@ -1,11 +1,11 @@
 {
-  "name": "@ronan-try/template",
+  "name": "@ronan-try/cli-shared-utils",
   "version": "1.0.0",
-  "description": "ro-cli do template",
+  "description": "ro-cli cli-shared-utils",
   "private": true,
   "keywords": [
     "ro-cli",
-    "template"
+    "cli-shared-utils"
   ],
   "files": [
     "lib",
