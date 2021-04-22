@@ -2,7 +2,6 @@
   "name": "@ronan-try/cli-shared-utils",
   "version": "1.0.0",
   "description": "ro-cli cli-shared-utils",
-  "private": true,
   "keywords": [
     "ro-cli",
     "cli-shared-utils"
