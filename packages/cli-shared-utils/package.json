@@ -1,0 +1,28 @@
+{
+  "name": "@ronan-try/template",
+  "version": "1.0.0",
+  "description": "ro-cli do template",
+  "private": true,
+  "keywords": [
+    "ro-cli",
+    "template"
+  ],
+  "files": [
+    "lib",
+    "src"
+  ],
+  "publishConfig": {
+    "main": "lib/es/index.js",
+    "typings": "lib/index.d.ts"
+  },
+  "scripts": {
+    "publish": "pnpm publish --access public",
+    "build": "rollup -c",
+    "test": "jest"
+  },
+  "author": "Ronan",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.1"
+  }
+}
