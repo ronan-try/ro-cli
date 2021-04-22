@@ -1,10 +1,10 @@
 {
-  "name": "@ronan-try/template",
+  "name": "@ronan-try/cli-const",
   "version": "1.0.0",
-  "description": "ro-cli do template",
+  "description": "ro-cli do cli-const",
   "keywords": [
     "ro-cli",
-    "template"
+    "cli-const"
   ],
   "files": [
     "lib",

@@ -2,7 +2,6 @@
   "name": "@ronan-try/cli-os-utils",
   "version": "1.0.0",
   "description": "ro-cli do cli-OS-utils",
-  "private": true,
   "keywords": [
     "ro-cli",
     "cli-OS-utils"
