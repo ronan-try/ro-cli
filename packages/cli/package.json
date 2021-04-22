@@ -1,0 +1,20 @@
+{
+  "name": "@ro/cli",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "ro": "bin/ro.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ronan",
+  "license": "MIT",
+  "dependencies": {
+    "@ro/cli-service": "workspace:^1.0.0",
+    "@ro/cli-shared-utils": "workspace:^1.0.0",
+    "commander": "^7.2.0",
+    "inquirer": "^8.0.0",
+    "shelljs": "^0.8.4"
+  }
+}
