@@ -55,26 +55,46 @@ importers:
 
   packages/cli-os-utils:
     specifiers:
+      '@ronan-try/cli-const': workspace:^1.0.0
+      '@ronan-try/cli-shared-utils': workspace:^1.0.0
       app-path: ^3.2.0
+      os: ^0.1.1
       shelljs: ^0.8.4
     dependencies:
+      '@ronan-try/cli-const': link:../cli-const
+      '@ronan-try/cli-shared-utils': link:../cli-shared-utils
       app-path: 3.2.0
+      os: 0.1.1
       shelljs: 0.8.4
 
   packages/cli-service:
     specifiers:
+      '@ronan-try/cli-const': workspace:^1.0.0
+      '@ronan-try/cli-os-utils': workspace:^1.0.0
+      '@ronan-try/cli-service': workspace:^1.0.2
+      '@ronan-try/cli-shared-utils': workspace:^1.0.0
       '@types/shelljs': ^0.8.8
+      '@types/ws': ^7.4.1
       shelljs: ^0.8.4
+      ws: ^7.4.5
     dependencies:
+      '@ronan-try/cli-const': link:../cli-const
+      '@ronan-try/cli-os-utils': link:../cli-os-utils
+      '@ronan-try/cli-service': 'link:'
+      '@ronan-try/cli-shared-utils': link:../cli-shared-utils
       shelljs: 0.8.4
+      ws: 7.4.5
     devDependencies:
       '@types/shelljs': 0.8.8
+      '@types/ws': 7.4.1
 
   packages/cli-shared-utils:
     specifiers:
       chalk: ^4.1.1
+      shelljs: ^0.8.4
     dependencies:
       chalk: 4.1.1
+      shelljs: 0.8.4
 
   packages/template-folder-config:
     specifiers: {}
@@ -1566,6 +1586,12 @@ packages:
 
   /@types/stack-utils/2.0.0:
     resolution: {integrity: sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==}
+    dev: true
+
+  /@types/ws/7.4.1:
+    resolution: {integrity: sha512-ISCK1iFnR+jYv7+jLNX0wDqesZ/5RAeY3wUx6QaphmocphU61h+b+PHjS18TF4WIPTu/MMzxIq2PHr32o2TS5Q==}
+    dependencies:
+      '@types/node': 14.14.41
     dev: true
 
   /@types/yargs-parser/20.2.0:
@@ -3965,6 +3991,10 @@ packages:
       word-wrap: 1.2.3
     dev: true
 
+  /os/0.1.1:
+    resolution: {integrity: sha1-IIhF6J4ZOtTZcUdLk5R3NqVtE/M=}
+    dev: false
+
   /p-each-series/2.2.0:
     resolution: {integrity: sha512-ycIL2+1V32th+8scbpTvyHNaHe02z0sjgh91XXjAk+ZeXoPN4Z46DVUnzdso0aX4KckKw0FNNFHdjZ2UsZvxiA==}
     engines: {node: '>=8'}
@@ -5104,6 +5134,19 @@ packages:
       utf-8-validate:
         optional: true
     dev: true
+
+  /ws/7.4.5:
+    resolution: {integrity: sha512-xzyu3hFvomRfXKH8vOFMU3OguG6oOvhXMo3xsGy3xWExqaM2dxBbVxuD99O7m3ZUFMvvscsZDqxfgMaRr/Nr1g==}
+    engines: {node: '>=8.3.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
 
   /xml-name-validator/3.0.0:
     resolution: {integrity: sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==}

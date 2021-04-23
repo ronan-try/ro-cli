@@ -22,11 +22,17 @@
 	"author": "Ronan",
 	"license": "MIT",
 	"dependencies": {
-		"shelljs": "^0.8.4"
+		"@ronan-try/cli-const": "workspace:^1.0.0",
+		"@ronan-try/cli-os-utils": "workspace:^1.0.0",
+		"@ronan-try/cli-service": "workspace:^1.0.2",
+		"@ronan-try/cli-shared-utils": "workspace:^1.0.0",
+		"shelljs": "^0.8.4",
+		"ws": "^7.4.5"
 	},
 	"main": "lib/es/index.js",
 	"typings": "lib/index.d.ts",
 	"devDependencies": {
-		"@types/shelljs": "^0.8.8"
+		"@types/shelljs": "^0.8.8",
+		"@types/ws": "^7.4.1"
 	}
 }

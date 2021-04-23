@@ -1,0 +1,24 @@
+{
+  "name": "@ronan-try/cli-cache",
+  "version": "1.0.0",
+  "description": "ro-cli do cli-cache",
+  "keywords": [
+    "ro-cli",
+    "cli-cache"
+  ],
+  "files": [
+    "lib",
+    "src"
+  ],
+  "publishConfig": {
+		"main": "lib/es/index.js",
+		"typings": "lib/index.d.ts"
+	},
+  "scripts": {
+		"publish": "pnpm publish --access public",
+    "build": "rollup -c",
+    "test": "jest"
+  },
+  "author": "Ronan",
+  "license": "MIT"
+}
