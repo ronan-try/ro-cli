@@ -1,7 +1,11 @@
 {
-  "name": "@ro/cli",
+  "name": "ro-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "personal work cli",
+  "keywords": [
+    "git",
+    "git-flow"
+  ],
   "bin": {
     "ro": "bin/ro.js"
   },
@@ -10,9 +14,11 @@
   },
   "author": "Ronan",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ronan-try/ro-cli"
+  },
   "dependencies": {
-    "@ro/cli-service": "workspace:^1.0.0",
-    "@ro/cli-shared-utils": "workspace:^1.0.0",
     "commander": "^7.2.0",
     "inquirer": "^8.0.0",
     "shelljs": "^0.8.4"
