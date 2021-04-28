@@ -2,13 +2,13 @@
   "name": "ro-cli",
   "version": "1.0.0",
   "description": "personal work cli",
+  "bin": {
+    "ro": "bin/ro.js"
+  },
   "keywords": [
     "git",
     "git-flow"
   ],
-  "bin": {
-    "ro": "bin/ro.js"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

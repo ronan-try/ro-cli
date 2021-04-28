@@ -5,17 +5,15 @@ import { textCyanBright, textRed } from '@ronan-try/cli-shared-utils'
 import { openWithFolder, openWithBrowser, openWithVSCode } from '@ronan-try/cli-os-utils'
 import { gitBranchR, gitCheckoutBSpawn, gitFetchRepo, gitPushOriginU, gitRemoteAdd, gitRemoteRemove } from '@ronan-try/cli-service/src/git';
 
-type MsgEntity = { type: string, data?: any }
-
 const ws = new WebSocket.Server({ port: WS_PORT, path: WS_PATH })
 const toJSONStringify = JSON.stringify
 const toJSONParse = JSON.parse
 
 ws.on('connection', connected)
-function connected (wsInstance: WebSocket) {
+function connected (wsInstance) {
   console.log(textCyanBright(`ws://localhost:${WS_PORT}${WS_PATH}`), ' is working')
 
-  const sendMsg = (type: string, data?: any) => wsInstance.send(toJSONStringify({ type, data }))
+  const sendMsg = (type, data = null) => wsInstance.send(toJSONStringify({ type, data }))
   sendMsg(WS_MSG_TYPE.CONNECTED)
   sendMsg(WS_MSG_TYPE.TEST, '1234 check check')
 
@@ -23,7 +21,7 @@ function connected (wsInstance: WebSocket) {
     try {
       console.log('recieved: $s', toJSONStringify(msg))
 
-      const objmsg: MsgEntity = typeof msg === 'string' && toJSONParse(msg)
+      const objmsg = typeof msg === 'string' && toJSONParse(msg)
       if (objmsg.type === WS_MSG_TYPE.TEST) {
         return sendMsg(WS_MSG_TYPE.TEST, 'checked checked')
       }
