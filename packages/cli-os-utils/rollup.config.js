@@ -25,7 +25,7 @@ function chunk (input, name) {
   configs.push({
     input: pathResolve('./src/', `${input}.ts`),
     output: {
-      file: pathResolve('./lib/es/', `${name}.d.ts`),
+      file: pathResolve('./es/', `${name}.d.ts`),
       format: 'es',
       globals,
     },
@@ -56,13 +56,13 @@ function chunk (input, name) {
     ],
     output: [
       {
-        file: pathResolve('./lib/cjs/', `${name}.js`),
+        file: pathResolve('./cjs/', `${name}.js`),
         format: 'cjs', // Type of output (amd, cjs, es, iife, umd, system)
         name,
         globals, // Comma-separate list of `moduleID:Global` pairs
       },
       {
-        file: pathResolve('./lib/cjs/mini/', `${name}.mini.js`),
+        file: pathResolve('./cjs/mini/', `${name}.mini.js`),
         format: 'cjs',
         name,
         compact: true,
@@ -73,7 +73,7 @@ function chunk (input, name) {
         globals,
       },
       {
-        file: pathResolve('./lib/es/', `${name}.js`),
+        file: pathResolve('./es/', `${name}.js`),
         format: 'es', // Type of output (amd, cjs, es, iife, umd, system)
         name,
         globals, // Comma-separate list of `moduleID:Global` pairs
@@ -96,15 +96,17 @@ const configFiles = [];
 
 
 // 这是比较坑的地方，原来每个config 都clear一边
-// cleandir('./lib');
+// cleandir('./cjs');
 del.sync('./lib');
+del.sync('./cjs');
+del.sync('./es');
 
 export default [
   ...configFiles,
   {
     input: path.resolve(`./index.ts`),
     output: {
-      file: path.resolve(`./lib/es/index.d.ts`),
+      file: path.resolve(`./es/index.d.ts`),
       format: 'es',
       globals,
     },
@@ -133,13 +135,13 @@ export default [
     ],
     output: [
       {
-        file: path.resolve(`./lib/cjs/index.js`),
+        file: path.resolve(`./cjs/index.js`),
         format: 'cjs',
         name: 'index',
         globals,
       },
       {
-        file: path.resolve(`./lib/cjs/mini/index.mini.js`),
+        file: path.resolve(`./cjs/mini/index.mini.js`),
         format: 'cjs',
         name: 'index',
         compact: true,
@@ -150,7 +152,7 @@ export default [
         globals,
       },
       {
-        file: pathResolve('./lib/es/', `index.js`),
+        file: pathResolve('./es/', `index.js`),
         format: 'es', // Type of output (amd, cjs, es, iife, umd, system)
         name: 'index',
         globals, // Comma-separate list of `moduleID:Global` pairs

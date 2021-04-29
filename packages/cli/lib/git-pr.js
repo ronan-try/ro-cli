@@ -10,13 +10,13 @@ const inquirer = require('inquirer');
 const { 
   textRedBright,
   textGreen,
-} = require('@ronan-try/cli-shared-utils/lib/umd/chalkText')
-const { logStep } = require('@ronan-try/cli-shared-utils/lib/umd/logStep');
+} = require('@ronan-try/cli-shared-utils/lib/cjs/chalkText')
+const { logStep } = require('@ronan-try/cli-shared-utils/lib/cjs/logStep');
 const {
   existGitRepo,
   gitBranchCurrent,
   gitLocalOriginURI,
-} = require('@ronan-try/cli-service/lib/umd/index');
+} = require('@ronan-try/cli-service/lib/cjs/index');
 
 async function sureToMakeMRFromTheBranch(branchName) {
   const questions = [{
@@ -38,7 +38,7 @@ async function openBroswerWithMrUrl(workPath, branchName) {
     + 'merge_request%5Bsource_branch%5D='
     + branchName;
 
-  require('')
+  require('@ronan-try/cli-os-utils/lib/cjs/index').openWithBrowser(url);
 }
 
 module.exports = async () => {

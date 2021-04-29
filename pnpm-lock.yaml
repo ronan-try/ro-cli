@@ -55,12 +55,14 @@ importers:
 
   packages/cli:
     specifiers:
+      '@ronan-try/cli-os-utils': workspace:^1.0.0
       '@ronan-try/cli-service': workspace:^1.0.2
       '@ronan-try/cli-shared-utils': workspace:^1.0.0
       commander: ^7.2.0
       inquirer: ^8.0.0
       shelljs: ^0.8.4
     dependencies:
+      '@ronan-try/cli-os-utils': link:../cli-os-utils
       '@ronan-try/cli-service': link:../cli-service
       '@ronan-try/cli-shared-utils': link:../cli-shared-utils
       commander: 7.2.0

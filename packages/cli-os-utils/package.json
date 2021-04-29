@@ -7,13 +7,13 @@
     "cli-OS-utils"
   ],
   "files": [
-    "lib",
-    "src"
+    "cjs",
+    "es",
+    "src",
+    "packages.json"
   ],
-  "publishConfig": {
-    "main": "lib/es/index.js",
-    "typings": "lib/index.d.ts"
-  },
+  "main": "cjs/index.js",
+  "typings": "es/index.d.ts",
   "scripts": {
     "publish": "pnpm publish --access public",
     "build": "rollup -c",
