@@ -12,8 +12,28 @@ import del from 'del';
 // 生成 .d.ts 好像自动可以生成
 // 将tsconfig.json中的"declaration": true, 干掉
 import dts from 'rollup-plugin-dts';
-// config
-import { extensions, external, globals } from '../scripts/rollupBuildConfig.ts';
+
+const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx'];
+
+/** 告诉rollup 不要打包，而是作为外部依赖 */
+const external = [
+  'child_process',
+  'path',
+  'fs',
+  'os',
+  'app-path',
+  'shelljs',
+  'chalk',
+  '@ronan-try/cli-shared-utils',
+];
+
+/** 告诉 rollup 全剧变量
+ * 例如{jquery:$},就是高速rollup全剧变量$是jquery
+ */
+const globals = external.reduce((pre, curitem) => {
+  pre[curitem] = curitem;
+  return pre;
+}, {});
 
 const pathResolve = (...args) => path.resolve(...args);
 
@@ -25,8 +45,9 @@ function chunk (input, name) {
   configs.push({
     input: pathResolve('./src/', `${input}.ts`),
     output: {
-      file: pathResolve('./lib/es/', `${name}.d.ts`),
+      file: pathResolve('./es/', `${name}.d.ts`),
       format: 'es',
+      globals,
     },
     plugins: [dts()],
   });
@@ -51,16 +72,17 @@ function chunk (input, name) {
         babelHelpers: 'bundled',
       }),
       sourcemaps(),
+      // dts(),
     ],
     output: [
       {
-        file: pathResolve('./lib/cjs/', `${name}.js`),
+        file: pathResolve('./cjs/', `${name}.js`),
         format: 'cjs', // Type of output (amd, cjs, es, iife, umd, system)
         name,
         globals, // Comma-separate list of `moduleID:Global` pairs
       },
       {
-        file: pathResolve('./lib/cjs/mini/', `${name}.mini.js`),
+        file: pathResolve('./cjs/mini/', `${name}.mini.js`),
         format: 'cjs',
         name,
         compact: true,
@@ -71,7 +93,7 @@ function chunk (input, name) {
         globals,
       },
       {
-        file: pathResolve('./lib/es/', `${name}.js`),
+        file: pathResolve('./es/', `${name}.js`),
         format: 'es', // Type of output (amd, cjs, es, iife, umd, system)
         name,
         globals, // Comma-separate list of `moduleID:Global` pairs
@@ -92,18 +114,20 @@ const configFiles = [];
   });
 })(configFiles);
 
-
 // 这是比较坑的地方，原来每个config 都clear一边
-// cleandir('./lib');
+// cleandir('./cjs');
 del.sync('./lib');
+del.sync('./cjs');
+del.sync('./es');
 
 export default [
   ...configFiles,
   {
     input: path.resolve(`./index.ts`),
     output: {
-      file: path.resolve(`./lib/es/index.d.ts`),
+      file: path.resolve(`./es/index.d.ts`),
       format: 'es',
+      globals,
     },
     plugins: [dts()],
   },
@@ -126,16 +150,17 @@ export default [
         babelHelpers: 'bundled',
       }),
       sourcemaps(),
+      // dts(),
     ],
     output: [
       {
-        file: path.resolve(`./lib/cjs/index.js`),
+        file: path.resolve(`./cjs/index.js`),
         format: 'cjs',
         name: 'index',
         globals,
       },
       {
-        file: path.resolve(`./lib/cjs/mini/index.mini.js`),
+        file: path.resolve(`./cjs/mini/index.mini.js`),
         format: 'cjs',
         name: 'index',
         compact: true,
@@ -146,7 +171,7 @@ export default [
         globals,
       },
       {
-        file: pathResolve('./lib/es/', `index.js`),
+        file: pathResolve('./es/', `index.js`),
         format: 'es', // Type of output (amd, cjs, es, iife, umd, system)
         name: 'index',
         globals, // Comma-separate list of `moduleID:Global` pairs

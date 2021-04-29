@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var os = require('os');
-var chalk = require('chalk');
+var cliSharedUtils = require('@ronan-try/cli-shared-utils');
 var child_process = require('child_process');
 var path = require('path');
 var appPath = require('app-path');
@@ -16,8 +16,6 @@ var child_process__default = /*#__PURE__*/_interopDefaultLegacy(child_process);
 var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
 var appPath__default = /*#__PURE__*/_interopDefaultLegacy(appPath);
 var shelljs__default = /*#__PURE__*/_interopDefaultLegacy(shelljs);
-
-const textRed = msg => chalk.red(msg);
 
 /** git 平台 */
 /** 操作系统平台 */
@@ -79,7 +77,7 @@ function openWithVSCode(fullPath) {
     return openWithVSCode$2();
   }
 
-  throw textRed('unexpected os platform');
+  throw cliSharedUtils.textRed('unexpected os platform');
 }
 function openWithFolder(fullPath) {
   const platform = os__default['default'].platform();
@@ -97,7 +95,7 @@ function openWithFolder(fullPath) {
     return openWithFolder$2(fullPath);
   }
 
-  throw textRed('unexpected os platform');
+  throw cliSharedUtils.textRed('unexpected os platform');
 }
 function openWithBrowser(url) {
   const platform = os__default['default'].platform();
@@ -115,7 +113,7 @@ function openWithBrowser(url) {
     return openWithBroswer$1(url);
   }
 
-  throw textRed('unexpected os platform');
+  throw cliSharedUtils.textRed('unexpected os platform');
 }
 
 exports.openWithBrowser = openWithBrowser;

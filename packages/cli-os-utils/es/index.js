@@ -1,11 +1,9 @@
 import os from 'os';
-import { red } from 'chalk';
+import { textRed } from '@ronan-try/cli-shared-utils';
 import child_process from 'child_process';
 import path from 'path';
 import appPath from 'app-path';
 import shelljs from 'shelljs';
-
-const textRed = msg => red(msg);
 
 /** git 平台 */
 /** 操作系统平台 */

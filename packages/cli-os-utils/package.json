@@ -16,7 +16,7 @@
   "typings": "es/index.d.ts",
   "scripts": {
     "publish": "pnpm publish --access public",
-    "build": "rollup -c",
+    "build": "rollup -c ../scripts/rollup.config.js",
     "test": "jest"
   },
   "author": "Ronan",

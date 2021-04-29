@@ -11,13 +11,11 @@
 		"src",
 		"pacckage.json"
 	],
-	"publishConfig": {
-		"main": "lib/es/index.js",
-		"typings": "lib/index.d.ts"
-	},
+	"main": "cjs/index.js",
+  "typings": "es/index.d.ts",
 	"scripts": {
 		"publish": "pnpm publish --access public",
-		"build": "rollup -c",
+		"build": "rollup -c ../scripts/rollup.config.js",
 		"test": "jest"
 	},
 	"author": "Ronan",
@@ -29,8 +27,6 @@
 		"@ronan-try/cli-shared-utils": "workspace:^1.0.0",
 		"shelljs": "^0.8.4"
 	},
-	"main": "lib/es/index.js",
-	"typings": "lib/index.d.ts",
 	"devDependencies": {
 		"@types/shelljs": "^0.8.8"
 	},
