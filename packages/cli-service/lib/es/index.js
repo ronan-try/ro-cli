@@ -1,4 +1,5 @@
 import shelljs from 'shelljs';
+import 'child_process';
 
 /** current work path exists a git repo */
 
@@ -29,10 +30,9 @@ const gitBranchCurrent = async workPath => {
     stderr
   } = await factoryGitShell(workPath, 'git branch --show-current');
   if (code === 0) return stdout.trim();
-  console.log(stderr);
   process.exit(1);
 };
-const gitRemoveV = async workPath => factoryGitShell(workPath, 'git remote -v');
+const gitRemoteV = async workPath => factoryGitShell(workPath, 'git remote -v');
 /** get local git origin */
 
 const gitLocalOriginURI = async workPath => {
@@ -40,7 +40,7 @@ const gitLocalOriginURI = async workPath => {
     code,
     stderr,
     stdout
-  } = await gitRemoveV(workPath);
+  } = await gitRemoteV(workPath);
 
   if (code !== 0) {
     console.log(stderr);
@@ -51,4 +51,4 @@ const gitLocalOriginURI = async workPath => {
   return gitOrigin;
 };
 
-export { existGitRepo, gitBranchCurrent, gitLocalOriginURI, gitRemoveV };
+export { existGitRepo, gitBranchCurrent, gitLocalOriginURI };

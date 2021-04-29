@@ -1,4 +1,3 @@
-import { spawn } from 'child_process';
 import shelljs from 'shelljs';
 import { ROCLI_GIT_UPSTREAM } from '@ronan-try/cli-const';
 import { shellSpawn } from '@ronan-try/cli-shared-utils/src/shellUtils';

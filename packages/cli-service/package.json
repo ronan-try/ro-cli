@@ -8,7 +8,8 @@
 	],
 	"files": [
 		"lib",
-		"src"
+		"src",
+		"pacckage.json"
 	],
 	"publishConfig": {
 		"main": "lib/es/index.js",
@@ -26,13 +27,19 @@
 		"@ronan-try/cli-os-utils": "workspace:^1.0.0",
 		"@ronan-try/cli-service": "workspace:^1.0.2",
 		"@ronan-try/cli-shared-utils": "workspace:^1.0.0",
-		"shelljs": "^0.8.4",
-		"ws": "^7.4.5"
+		"shelljs": "^0.8.4"
 	},
 	"main": "lib/es/index.js",
 	"typings": "lib/index.d.ts",
 	"devDependencies": {
-		"@types/shelljs": "^0.8.8",
-		"@types/ws": "^7.4.1"
-	}
+		"@types/shelljs": "^0.8.8"
+	},
+	"repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronan-try/ro-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ronan-try/ro-cli/issues"
+  },
+  "homepage": "https://github.com/ronan-try/ro-cli#readme"
 }
