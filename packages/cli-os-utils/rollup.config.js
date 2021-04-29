@@ -75,14 +75,14 @@ function chunk (input, name) {
     ],
     output: [
       {
-        file: pathResolve('./lib/umd/', `${name}.js`),
-        format: 'umd', // Type of output (amd, cjs, es, iife, umd, system)
+        file: pathResolve('./lib/cjs/', `${name}.js`),
+        format: 'cjs', // Type of output (amd, cjs, es, iife, umd, system)
         name,
         globals, // Comma-separate list of `moduleID:Global` pairs
       },
       {
-        file: pathResolve('./lib/umd/mini/', `${name}.mini.js`),
-        format: 'umd',
+        file: pathResolve('./lib/cjs/mini/', `${name}.mini.js`),
+        format: 'cjs',
         name,
         compact: true,
         plugins: [
@@ -152,14 +152,14 @@ export default [
     ],
     output: [
       {
-        file: path.resolve(`./lib/umd/index.js`),
-        format: 'umd',
+        file: path.resolve(`./lib/cjs/index.js`),
+        format: 'cjs',
         name: 'index',
         globals,
       },
       {
-        file: path.resolve(`./lib/umd/mini/index.mini.js`),
-        format: 'umd',
+        file: path.resolve(`./lib/cjs/mini/index.mini.js`),
+        format: 'cjs',
         name: 'index',
         compact: true,
         plugins: [

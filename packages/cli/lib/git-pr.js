@@ -38,7 +38,7 @@ async function openBroswerWithMrUrl(workPath, branchName) {
     + 'merge_request%5Bsource_branch%5D='
     + branchName;
 
-  require('shelljs').exec('open ' + url);
+  require('')
 }
 
 module.exports = async () => {
