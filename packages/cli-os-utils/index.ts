@@ -1,5 +1,5 @@
 import os from 'os';
-import { textRed } from '@ronan-try/cli-shared-utils';
+import { textRed } from '@ronan-try/cli-shared-utils/lib/es/index';
 import { OS_PLATFORMS } from '@ronan-try/cli-const';
 
 // 内部资源

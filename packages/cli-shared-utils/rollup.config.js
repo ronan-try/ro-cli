@@ -33,7 +33,7 @@ function chunk (input, name) {
   configs.push({
     input: pathResolve('./src/', `${input}.ts`),
     output: {
-      file: pathResolve('./lib/', `${name}.d.ts`),
+      file: pathResolve('./lib/es/', `${name}.d.ts`),
       format: 'es',
     },
     plugins: [dts()],
@@ -59,7 +59,6 @@ function chunk (input, name) {
         babelHelpers: 'bundled',
       }),
       sourcemaps(),
-      // dts(),
     ],
     output: [
       {
@@ -111,7 +110,7 @@ export default [
   {
     input: path.resolve(`./index.ts`),
     output: {
-      file: path.resolve(`./lib/index.d.ts`),
+      file: path.resolve(`./lib/es/index.d.ts`),
       format: 'es',
     },
     plugins: [dts()],
@@ -135,7 +134,6 @@ export default [
         babelHelpers: 'bundled',
       }),
       sourcemaps(),
-      // dts(),
     ],
     output: [
       {

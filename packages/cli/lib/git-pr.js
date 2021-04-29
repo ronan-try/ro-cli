@@ -10,14 +10,13 @@ const inquirer = require('inquirer');
 const { 
   textRedBright,
   textGreen,
-} = require('@ro/cli-shared-utils/lib/umd/chalkText');
-const { logStep } = require('@ro/cli-shared-utils/lib/umd/logStep');
+} = require('@ronan-try/cli-shared-utils/lib/umd/chalkText')
+const { logStep } = require('@ronan-try/cli-shared-utils/lib/umd/logStep');
 const {
   existGitRepo,
   gitBranchCurrent,
   gitLocalOriginURI,
-} = require('@ro/cli-service/lib/umd/git');
-// // require('../cli-editors/index').openWithBroswer(url);
+} = require('@ronan-try/cli-service/lib/umd/index');
 
 async function sureToMakeMRFromTheBranch(branchName) {
   const questions = [{

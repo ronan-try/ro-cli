@@ -16,12 +16,23 @@ import dts from 'rollup-plugin-dts';
 const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx'];
 
 /** 告诉rollup 不要打包，而是作为外部依赖 */
-const external = ['shelljs'];
+const external = [
+  'child_process',
+  'path',
+  'fs',
+  'os',
+  'app-path',
+  'shelljs',
+  'chalk',
+];
 
 /** 告诉 rollup 全剧变量
  * 例如{jquery:$},就是高速rollup全剧变量$是jquery
  */
-const globals = { 'shelljs': 'shelljs' };
+const globals = external.reduce((pre, curitem) => {
+  pre[curitem] = curitem;
+  return pre;
+}, {});
 
 const pathResolve = (...args) => path.resolve(...args);
 
@@ -33,8 +44,9 @@ function chunk (input, name) {
   configs.push({
     input: pathResolve('./src/', `${input}.ts`),
     output: {
-      file: pathResolve('./lib/umd/', `${name}.d.ts`),
+      file: pathResolve('./lib/es/', `${name}.d.ts`),
       format: 'es',
+      globals,
     },
     plugins: [dts()],
   });
@@ -111,8 +123,9 @@ export default [
   {
     input: path.resolve(`./index.ts`),
     output: {
-      file: path.resolve(`./lib/umd/index.d.ts`),
+      file: path.resolve(`./lib/es/index.d.ts`),
       format: 'es',
+      globals,
     },
     plugins: [dts()],
   },

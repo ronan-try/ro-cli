@@ -3,27 +3,19 @@ import path from 'path';
 import appPath from 'app-path';
 import shelljs from 'shelljs';
 
-export function openWithVSCode(fullPath: string) {
+function openWithVSCode(fullPath) {
   (async () => {
     const identifier = 'com.microsoft.VSCode';
     const installPath = await appPath(identifier);
-
-    const excutableShim = path.join(
-      installPath,
-      'Contents',
-      'Resources',
-      'app',
-      'bin',
-      'code'
-    );
+    const excutableShim = path.join(installPath, 'Contents', 'Resources', 'app', 'bin', 'code');
     child_process.spawn(excutableShim, [fullPath]);
   })();
 }
-
-export function openWithFolder (fullPath: string = '.') {
+function openWithFolder(fullPath = '.') {
   shelljs.exec('open ' + fullPath);
 }
-
-export function openWithBroswer (url: string) {
+function openWithBroswer(url) {
   shelljs.exec('open ' + url);
 }
+
+export { openWithBroswer, openWithFolder, openWithVSCode };
