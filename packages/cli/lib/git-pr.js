@@ -4,7 +4,7 @@
  * win下无效，win自动根据文件类型调用解析器
  */
 
-// 交互模块
+// 交互模块    / / asdf
 const inquirer = require('inquirer');
 // 内部依赖
 const { 
