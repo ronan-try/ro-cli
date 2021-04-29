@@ -1,10 +1,19 @@
-import shelljs from 'shelljs';
-import child_process from 'child_process';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var shelljs = require('shelljs');
+var child_process = require('child_process');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var shelljs__default = /*#__PURE__*/_interopDefaultLegacy(shelljs);
+var child_process__default = /*#__PURE__*/_interopDefaultLegacy(child_process);
 
 /** ro cli git upstream: ro_cli_upstream */
 const ROCLI_GIT_UPSTREAM = 'ro_cli_upstream';
 
-const shellSpawn = (cmd, cwdPath) => child_process.spawn(cmd, {
+const shellSpawn = (cmd, cwdPath) => child_process__default['default'].spawn(cmd, {
   cwd: cwdPath,
   shell: true,
   stdio: 'inherit'
@@ -13,14 +22,14 @@ const shellSpawn = (cmd, cwdPath) => child_process.spawn(cmd, {
 /** current work path exists a git repo */
 
 const existGitRepo = workPath => new Promise(resolve => {
-  shelljs.exec('git status', {
+  shelljs__default['default'].exec('git status', {
     cwd: workPath,
     silent: true
   }, code => resolve(code === 0));
 });
 
 const factoryGitShell = (workPath, cmd) => new Promise(resolve => {
-  shelljs.exec(cmd, {
+  shelljs__default['default'].exec(cmd, {
     cwd: workPath,
     silent: true
   }, (code, stdout, stderr) => resolve({
@@ -88,4 +97,20 @@ const gitLocalOriginURI = async workPath => {
   return gitOrigin;
 };
 
-export { existGitRepo, gitAddAll, gitBranchCurrent, gitBranchLocal, gitBranchR, gitCheckoutB, gitCheckoutBSpawn, gitCheckoutSpawn, gitCommitM, gitFetchRepo, gitLocalOriginURI, gitMergeTargetToLocal, gitPushOrigin, gitPushOriginU, gitRemoteAdd, gitRemoteRemove, gitRemoteV };
+exports.existGitRepo = existGitRepo;
+exports.gitAddAll = gitAddAll;
+exports.gitBranchCurrent = gitBranchCurrent;
+exports.gitBranchLocal = gitBranchLocal;
+exports.gitBranchR = gitBranchR;
+exports.gitCheckoutB = gitCheckoutB;
+exports.gitCheckoutBSpawn = gitCheckoutBSpawn;
+exports.gitCheckoutSpawn = gitCheckoutSpawn;
+exports.gitCommitM = gitCommitM;
+exports.gitFetchRepo = gitFetchRepo;
+exports.gitLocalOriginURI = gitLocalOriginURI;
+exports.gitMergeTargetToLocal = gitMergeTargetToLocal;
+exports.gitPushOrigin = gitPushOrigin;
+exports.gitPushOriginU = gitPushOriginU;
+exports.gitRemoteAdd = gitRemoteAdd;
+exports.gitRemoteRemove = gitRemoteRemove;
+exports.gitRemoteV = gitRemoteV;

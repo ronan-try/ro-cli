@@ -1,5 +1,5 @@
 import shelljs from 'shelljs';
-import { spawn } from 'child_process';
+import child_process from 'child_process';
 
 export const shellCd = (fullPath: string) => {
   shelljs.cd(fullPath);
@@ -13,4 +13,4 @@ export const execAsync = async (path: string, cmd: string, silent = false) => ne
   )
 });
 
-export const shellSpawn = (cmd: string, cwdPath: string) => spawn(cmd, { cwd: cwdPath, shell: true, stdio: 'inherit' });
+export const shellSpawn = (cmd: string, cwdPath: string) => child_process.spawn(cmd, { cwd: cwdPath, shell: true, stdio: 'inherit' });

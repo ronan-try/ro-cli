@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});exports.trimOnlyEnd=(e,r)=>{if(e&&void 0===r)return e;if(!e)return e;const t=e.lastIndexOf(r);return e.slice(0,t)};//# sourceMappingURL=trimOnlyEnd.mini.js.map

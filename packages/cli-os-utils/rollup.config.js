@@ -13,7 +13,7 @@ import del from 'del';
 // 将tsconfig.json中的"declaration": true, 干掉
 import dts from 'rollup-plugin-dts';
 // config
-import { extensions, external, globals } from '../scripts/rollupBuildConfig';
+import { extensions, external, globals } from '../scripts/rollupBuildConfig.ts';
 
 const pathResolve = (...args) => path.resolve(...args);
 

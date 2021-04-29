@@ -1,4 +1,4 @@
-import * as child_process from 'child_process';
+import child_process from 'child_process';
 
 declare const shellCd: (fullPath: string) => void;
 declare const execAsync: (path: string, cmd: string, silent?: boolean) => Promise<unknown>;

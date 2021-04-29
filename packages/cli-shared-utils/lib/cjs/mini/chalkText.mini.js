@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=require("chalk");exports.textCyan=t=>e.cyan(t),exports.textCyanBright=t=>e.cyanBright(t),exports.textGray=t=>e.gray(t),exports.textGreen=t=>e.green(t),exports.textRed=t=>e.red(t),exports.textRedBright=t=>e.redBright(t),exports.textYellow=t=>e.yellow(t);//# sourceMappingURL=chalkText.mini.js.map

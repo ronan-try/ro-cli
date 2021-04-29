@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});exports.GIT_PLATFORMS={GitHub:"github",GitLab:"gitlab",Gitee:"gitee"},exports.OS_PLATFORMS={Win32:"win32",Darwin:"darwin",Linux:"linux"};//# sourceMappingURL=platform.mini.js.map
