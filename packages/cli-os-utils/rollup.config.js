@@ -12,27 +12,8 @@ import del from 'del';
 // 生成 .d.ts 好像自动可以生成
 // 将tsconfig.json中的"declaration": true, 干掉
 import dts from 'rollup-plugin-dts';
-
-const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx'];
-
-/** 告诉rollup 不要打包，而是作为外部依赖 */
-const external = [
-  'child_process',
-  'path',
-  'fs',
-  'os',
-  'app-path',
-  'shelljs',
-  'chalk',
-];
-
-/** 告诉 rollup 全剧变量
- * 例如{jquery:$},就是高速rollup全剧变量$是jquery
- */
-const globals = external.reduce((pre, curitem) => {
-  pre[curitem] = curitem;
-  return pre;
-}, {});
+// config
+import { extensions, external, globals } from '../scripts/rollupBuildConfig';
 
 const pathResolve = (...args) => path.resolve(...args);
 
