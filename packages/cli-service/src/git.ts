@@ -36,12 +36,12 @@ export const gitRemoteRemove = async (workPath: string, targetRepo = ROCLI_GIT_U
 export const gitFetchRepo = async (workPath: string, targetRepo = ROCLI_GIT_UPSTREAM) => factoryGitShell(workPath, `git fetch ` + targetRepo)
 export const gitCheckoutB = async (workPath: string, localBranch: string, targetBranch: string) => factoryGitShell(workPath, `git checkout -b ${localBranch} ${targetBranch}`)
 
-export const gitPushOrigin =  async (workPath: string, branch = '') => factoryGitShell(`git push origin ${branch}`, workPath);
-export const gitPushOriginU = async (workPath: string, branch = '') => factoryGitShell(`git push -u origin ${branch}`, workPath);
-export const gitAddAll = async (workPath: string) => factoryGitShell('git add .', workPath);
-export const gitCommitM = async (workPath: string, msg: string) => factoryGitShell('git commit -m ' + msg, workPath);
-export const gitBranchR = async (workPath: string) => factoryGitShell('git banch -r', workPath);
-export const gitBranchLocal = async (workPath: string) => factoryGitShell('git branch', workPath);
+export const gitPushOrigin = async (workPath: string, branch = '') => factoryGitShell(workPath, `git push origin ${branch}`,);
+export const gitPushOriginU = async (workPath: string, branch = '') => factoryGitShell(workPath, `git push -u origin ${branch}`,);
+export const gitAddAll = async (workPath: string) => factoryGitShell(workPath, 'git add .',);
+export const gitCommitM = async (workPath: string, msg: string) => factoryGitShell(workPath, 'git commit -m ' + msg,);
+export const gitBranchR = async (workPath: string) => factoryGitShell(workPath, 'git branch -r',);
+export const gitBranchLocal = async (workPath: string) => factoryGitShell(workPath, 'git branch',);
 
 
 export const gitCheckoutSpawn = async (workPath: string, localBranch: string) => new Promise(resolve => {
