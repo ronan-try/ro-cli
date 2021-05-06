@@ -5,45 +5,44 @@
  * win下无效，win自动根据文件类型调用解析器
  */
 
-const shelljs = require('shelljs');
 const ora = require('ora');
 // 交互模块
 const inquirer = require('inquirer');
-// 文件模块
-const { textCyan, textYellow, textGreen } = require('../cli-shared-utils/chalk');
-const { logStep } = require('../cli-shared-utils/logStep');
-
-// 内部依赖
+// tools
+const { textCyan, textYellow, textGreen } = require('@ronan-try/cli-shared-utils')
+const { logStep } = require('@ronan-try/cli-shared-utils');
+// service
 const {
   gitBranchR,
-  gitLocalOrigin,
-  gitRemoteAdd,
+  gitLocalOriginURI,
   gitFetchRepo,
+  gitRemoteAdd,
   gitRemoteRemove,
-  gitPushUOrigin,
-  gitCheckoutBSpawn,
-} = require('../cli-services/git');
+  gitPushOriginU,
+  gitCheckoutBSpawn
+} = require('@ronan-try/cli-service/cjs/git');
+// const
+const { ORIGIN_GIT_UPSTREAM, ROCLI_GIT_UPSTREAM } = require('@ronan-try/cli-const');
 
-const { ConstName } = require('../cli-enums');
-const { ROCLIUPSTREAM } = ConstName;
+module.exports = async () => {
+  logStep('step1: select project');
 
-(async () => {
-  logStep`step1: select project`;
   const { selectedProject } = await require('./inquirers/selectCacheProject')();
 
-  // logStep`step1: what's the personal repo`;
-  const personalRepo = await gitLocalOrigin(selectedProject.localPath);
+  const personalRepo = await gitLocalOriginURI(selectedProject.localPath);
 
   logStep`step2: user check repos`;
   {
     const questions = [
       {
         type: 'confirm',
+        default: false,
         message: 'Is personal repo: ' + textCyan(personalRepo),
         name: 'inputIsPersonal'
       },
       {
         type: 'confirm',
+        default: false,
         message: 'Is target repo: ' + textCyan(selectedProject.targetRepo),
         name: 'inputIsTarget'
       }
@@ -78,10 +77,10 @@ const { ROCLIUPSTREAM } = ConstName;
     const spinner = ora('fetch upstream...');
     spinner.start();
 
-    const res = await gitFetchRepo(selectedProject.localPath, ROCLIUPSTREAM);
+    const res = await gitFetchRepo(selectedProject.localPath);
     if (res.code !== 0) {
       spinner.fail(res.stderr);
-      throw res.stderr && shelljs.exit(1);
+      throw res.stderr && process.exit(1);
     }
     spinner.succeed();
   }
@@ -89,14 +88,17 @@ const { ROCLIUPSTREAM } = ConstName;
   logStep`step4: get branch -v`;
   const TargetBranches = [];
   {
-    const spinner = ora('get branch -v...')
+    const spinner = ora('get branch -v...');
+    console.log(selectedProject.localPath);
+
     const res = await gitBranchR(selectedProject.localPath);
+    console.log(res);
     if (res.code !== 0) {
       spinner.fail(res.stderr);
       throw res.stderr;
     }
 
-    [].push.apply(TargetBranches, res.stdout.split('\n').map(i => i.trim()).filter(i => i.includes(ROCLIUPSTREAM)));
+    [].push.apply(TargetBranches, res.stdout.split('\n').map(i => i.trim()).filter(i => i.includes(ROCLI_GIT_UPSTREAM)));
 
     console.log();
     TargetBranches.forEach(i => console.log(textGreen(i)));
@@ -134,10 +136,15 @@ const { ROCLIUPSTREAM } = ConstName;
   logStep`step7: forking`;
   {
     const spinner = ora('foking ...');
+    console.log();
     spinner.start();
 
+    console.log(textGreen(selectedProject.localPath));
+    console.log(textGreen(theNewLocalBranch));
+    console.log(textGreen(theTargetBranch));
     const res = await gitCheckoutBSpawn(selectedProject.localPath, theNewLocalBranch, theTargetBranch);
-    if (res.code !== 0) {
+
+    if (res !== 0) {
       spinner.fail(res.stderr);
       throw res.stderr;
     }
@@ -155,7 +162,7 @@ const { ROCLIUPSTREAM } = ConstName;
       // to do
     }
 
-    const res = await gitPushUOrigin(selectedProject.localPath, theNewLocalBranch);
+    const res = await gitPushOriginU(selectedProject.localPath, theNewLocalBranch);
 
     if (res.code !== 0) {
       spinner.fail(res.stderr);
@@ -166,7 +173,8 @@ const { ROCLIUPSTREAM } = ConstName;
   }
 
   logStep`step9: open with vscode`;
-  require('../cli-lib/inquirers/openWithVSCode')(selectedProject.localPath);
+  require('@ronan-try/cli-os-utils').openWithVSCode(selectedProject.localPath);
 
   logStep`step: the end`;
-})();
+
+};

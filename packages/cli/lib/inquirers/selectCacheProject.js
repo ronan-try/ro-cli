@@ -1,10 +1,10 @@
 const inquirer = require('inquirer');
-const { cacheProjectsValid } = require('../../cli-services/cache');
-const __projects__ = cacheProjectsValid();
+const { getRawCacheData } = require('@ronan-try/cli-cache');
+const __projects__ = getRawCacheData('projects')
 
 async function selectCacheProjects() {
   return new Promise(async resolve => {
-    const SPLITCHAR = require('../../cli-enums/index').ConstName.SPLITCHAR;
+    const SPLITCHAR = require('@ronan-try/cli-const').SPLIT_CHAR;
 
     const questions = [{
       type: 'list',
