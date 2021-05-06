@@ -9,12 +9,15 @@ import * as Win23 from './src/win32';
 
 export function openWithVSCode (fullPath: string) {
   const platform = os.platform();
+  console.log('.....', platform);
 
   if (platform === OS_PLATFORMS.Darwin) {
     return Darwin.openWithVSCode(fullPath);
   }
 
   if (platform === OS_PLATFORMS.Win32) {
+    console.log('.....', 'in win32');
+
     return Win23.openWithVSCode(fullPath);
   }
 

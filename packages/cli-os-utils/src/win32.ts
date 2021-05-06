@@ -6,6 +6,7 @@ export function openWithBroswer(url: string) {
 
 export function openWithVSCode(fullPath: string) {
   // to do
+  shelljs.exec('code ' + fullPath);
 }
 
 export function openWithFolder (fullPath: string = '.') {

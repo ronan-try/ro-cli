@@ -1,18 +1,10 @@
 import os from 'os';
 import { textRed } from '@ronan-try/cli-shared-utils';
+import { OS_PLATFORMS } from '@ronan-try/cli-const';
 import child_process from 'child_process';
 import path from 'path';
 import appPath from 'app-path';
 import shelljs from 'shelljs';
-
-/** git 平台 */
-/** 操作系统平台 */
-
-const OS_PLATFORMS = {
-  Win32: 'win32',
-  Darwin: 'darwin',
-  Linux: 'linux'
-};
 
 function openWithVSCode$3(fullPath) {
   (async () => {
@@ -42,7 +34,9 @@ function openWithFolder$2(fullPath = '.') {
 function openWithBroswer(url) {
   shelljs.exec('start ' + url);
 }
-function openWithVSCode$1(fullPath) {// to do
+function openWithVSCode$1(fullPath) {
+  // to do
+  shelljs.exec('code ' + fullPath);
 }
 function openWithFolder$1(fullPath = '.') {
   // to do
@@ -51,13 +45,15 @@ function openWithFolder$1(fullPath = '.') {
 
 function openWithVSCode(fullPath) {
   const platform = os.platform();
+  console.log('.....', platform);
 
   if (platform === OS_PLATFORMS.Darwin) {
     return openWithVSCode$3(fullPath);
   }
 
   if (platform === OS_PLATFORMS.Win32) {
-    return openWithVSCode$1();
+    console.log('.....', 'in win32');
+    return openWithVSCode$1(fullPath);
   }
 
   if (platform === OS_PLATFORMS.Linux) {
