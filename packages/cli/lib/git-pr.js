@@ -6,9 +6,10 @@
 
 // 交互模块    / / asdf
 const inquirer = require('inquirer');
-// 内部依赖
+// tools
 const { textRedBright, textGreen, } = require('@ronan-try/cli-shared-utils')
 const { logStep } = require('@ronan-try/cli-shared-utils');
+// service
 const { existGitRepo, gitBranchCurrent, gitLocalOriginURI, } = require('@ronan-try/cli-service');
 
 async function sureToMakeMRFromTheBranch (branchName) {
