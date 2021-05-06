@@ -7,18 +7,11 @@
 // 交互模块    / / asdf
 const inquirer = require('inquirer');
 // 内部依赖
-const { 
-  textRedBright,
-  textGreen,
-} = require('@ronan-try/cli-shared-utils')
+const { textRedBright, textGreen, } = require('@ronan-try/cli-shared-utils')
 const { logStep } = require('@ronan-try/cli-shared-utils');
-const {
-  existGitRepo,
-  gitBranchCurrent,
-  gitLocalOriginURI,
-} = require('@ronan-try/cli-service');
+const { existGitRepo, gitBranchCurrent, gitLocalOriginURI, } = require('@ronan-try/cli-service');
 
-async function sureToMakeMRFromTheBranch(branchName) {
+async function sureToMakeMRFromTheBranch (branchName) {
   const questions = [{
     type: 'confirm',
     message: 'Sure to Make a MR/PR from the branch: ' + textGreen(branchName),
@@ -28,15 +21,21 @@ async function sureToMakeMRFromTheBranch(branchName) {
   return yeah;
 }
 
-async function openBroswerWithMrUrl(workPath, branchName) {
+async function openBroswerWithMrUrl (workPath, branchName) {
   const originUrl = await gitLocalOriginURI(workPath);
-  const url =
-    `${originUrl}`
-      .replace('.com:', '.com/')
-      .replace('git@', 'https://')
-      .replace('.git', '/merge_requests/new?')
+  // 默认git地址
+  let url = `${originUrl}`
+    .replace('.com:', '.com/')
+    .replace('git@', 'https://')
+    .replace('.git', '/merge_requests/new?')
     + 'merge_request%5Bsource_branch%5D='
     + branchName;
+
+  if (originUrl.includes('github.com')) {
+    url = `${originUrl}`.replace('.git', '/compare/main...' + originUrl.replace('https://github.com/', '').replace(/(\/(\S*))/, '') + ':' + branchName);
+  } else if (originUrl.includes('gitee.com')) {
+    url = `${originUrl}`.replace('.git', '/compare/main...' + originUrl.replace('https://gitee.com/', '').replace(/(\/(\S*))/, '') + ':' + curLocalBranch);
+  }
 
   require('@ronan-try/cli-os-utils').openWithBrowser(url);
 }
