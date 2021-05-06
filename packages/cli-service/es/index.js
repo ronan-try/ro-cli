@@ -1,4 +1,5 @@
 import shelljs from 'shelljs';
+import '@ronan-try/cli-const';
 import 'child_process';
 
 /** current work path exists a git repo */

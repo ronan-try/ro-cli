@@ -1,8 +1,6 @@
 import shelljs from 'shelljs';
+import { ROCLI_GIT_UPSTREAM } from '@ronan-try/cli-const';
 import child_process from 'child_process';
-
-/** ro cli git upstream: ro_cli_upstream */
-const ROCLI_GIT_UPSTREAM = 'ro_cli_upstream';
 
 const shellSpawn = (cmd, cwdPath) => child_process.spawn(cmd, {
   cwd: cwdPath,
@@ -46,12 +44,12 @@ const gitRemoteAdd = async (workPath, targetRepo) => factoryGitShell(workPath, `
 const gitRemoteRemove = async (workPath, targetRepo = ROCLI_GIT_UPSTREAM) => factoryGitShell(workPath, `git remote remove ` + targetRepo);
 const gitFetchRepo = async (workPath, targetRepo = ROCLI_GIT_UPSTREAM) => factoryGitShell(workPath, `git fetch ` + targetRepo);
 const gitCheckoutB = async (workPath, localBranch, targetBranch) => factoryGitShell(workPath, `git checkout -b ${localBranch} ${targetBranch}`);
-const gitPushOrigin = async (workPath, branch = '') => factoryGitShell(`git push origin ${branch}`, workPath);
-const gitPushOriginU = async (workPath, branch = '') => factoryGitShell(`git push -u origin ${branch}`, workPath);
-const gitAddAll = async workPath => factoryGitShell('git add .', workPath);
-const gitCommitM = async (workPath, msg) => factoryGitShell('git commit -m ' + msg, workPath);
-const gitBranchR = async workPath => factoryGitShell('git banch -r', workPath);
-const gitBranchLocal = async workPath => factoryGitShell('git branch', workPath);
+const gitPushOrigin = async (workPath, branch = '') => factoryGitShell(workPath, `git push origin ${branch}`);
+const gitPushOriginU = async (workPath, branch = '') => factoryGitShell(workPath, `git push -u origin ${branch}`);
+const gitAddAll = async workPath => factoryGitShell(workPath, 'git add .');
+const gitCommitM = async (workPath, msg) => factoryGitShell(workPath, 'git commit -m ' + msg);
+const gitBranchR = async workPath => factoryGitShell(workPath, 'git branch -r');
+const gitBranchLocal = async workPath => factoryGitShell(workPath, 'git branch');
 const gitCheckoutSpawn = async (workPath, localBranch) => new Promise(resolve => {
   const sp = shellSpawn(`git checkout ${localBranch}`, workPath);
   sp.on('close', code => {

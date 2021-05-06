@@ -3,15 +3,13 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var shelljs = require('shelljs');
+var cliConst = require('@ronan-try/cli-const');
 var child_process = require('child_process');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var shelljs__default = /*#__PURE__*/_interopDefaultLegacy(shelljs);
 var child_process__default = /*#__PURE__*/_interopDefaultLegacy(child_process);
-
-/** ro cli git upstream: ro_cli_upstream */
-const ROCLI_GIT_UPSTREAM = 'ro_cli_upstream';
 
 const shellSpawn = (cmd, cwdPath) => child_process__default['default'].spawn(cmd, {
   cwd: cwdPath,
@@ -51,16 +49,16 @@ const gitBranchCurrent = async workPath => {
   process.exit(1);
 };
 const gitRemoteV = async workPath => factoryGitShell(workPath, 'git remote -v');
-const gitRemoteAdd = async (workPath, targetRepo) => factoryGitShell(workPath, `git remote add ${ROCLI_GIT_UPSTREAM} ${targetRepo}`);
-const gitRemoteRemove = async (workPath, targetRepo = ROCLI_GIT_UPSTREAM) => factoryGitShell(workPath, `git remote remove ` + targetRepo);
-const gitFetchRepo = async (workPath, targetRepo = ROCLI_GIT_UPSTREAM) => factoryGitShell(workPath, `git fetch ` + targetRepo);
+const gitRemoteAdd = async (workPath, targetRepo) => factoryGitShell(workPath, `git remote add ${cliConst.ROCLI_GIT_UPSTREAM} ${targetRepo}`);
+const gitRemoteRemove = async (workPath, targetRepo = cliConst.ROCLI_GIT_UPSTREAM) => factoryGitShell(workPath, `git remote remove ` + targetRepo);
+const gitFetchRepo = async (workPath, targetRepo = cliConst.ROCLI_GIT_UPSTREAM) => factoryGitShell(workPath, `git fetch ` + targetRepo);
 const gitCheckoutB = async (workPath, localBranch, targetBranch) => factoryGitShell(workPath, `git checkout -b ${localBranch} ${targetBranch}`);
-const gitPushOrigin = async (workPath, branch = '') => factoryGitShell(`git push origin ${branch}`, workPath);
-const gitPushOriginU = async (workPath, branch = '') => factoryGitShell(`git push -u origin ${branch}`, workPath);
-const gitAddAll = async workPath => factoryGitShell('git add .', workPath);
-const gitCommitM = async (workPath, msg) => factoryGitShell('git commit -m ' + msg, workPath);
-const gitBranchR = async workPath => factoryGitShell('git banch -r', workPath);
-const gitBranchLocal = async workPath => factoryGitShell('git branch', workPath);
+const gitPushOrigin = async (workPath, branch = '') => factoryGitShell(workPath, `git push origin ${branch}`);
+const gitPushOriginU = async (workPath, branch = '') => factoryGitShell(workPath, `git push -u origin ${branch}`);
+const gitAddAll = async workPath => factoryGitShell(workPath, 'git add .');
+const gitCommitM = async (workPath, msg) => factoryGitShell(workPath, 'git commit -m ' + msg);
+const gitBranchR = async workPath => factoryGitShell(workPath, 'git branch -r');
+const gitBranchLocal = async workPath => factoryGitShell(workPath, 'git branch');
 const gitCheckoutSpawn = async (workPath, localBranch) => new Promise(resolve => {
   const sp = shellSpawn(`git checkout ${localBranch}`, workPath);
   sp.on('close', code => {
