@@ -1,18 +1,21 @@
 {
 	"name": "@ronan-try/cli-service",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"description": "ro-cli do sm services",
 	"keywords": [
 		"ro-cli",
 		"service"
 	],
 	"files": [
-		"lib",
+		"cjs",
+		"es",
 		"src",
-		"pacckage.json"
+		"index.ts",
+		"package.json",
+		"README.MD"
 	],
 	"main": "cjs/index.js",
-  "typings": "es/index.d.ts",
+	"typings": "es/index.d.ts",
 	"scripts": {
 		"publish": "pnpm publish --access public",
 		"build": "rollup -c ../scripts/rollup.config.js",
@@ -31,11 +34,11 @@
 		"@types/shelljs": "^0.8.8"
 	},
 	"repository": {
-    "type": "git",
-    "url": "git+https://github.com/ronan-try/ro-cli.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ronan-try/ro-cli/issues"
-  },
-  "homepage": "https://github.com/ronan-try/ro-cli#readme"
+		"type": "git",
+		"url": "git+https://github.com/ronan-try/ro-cli.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ronan-try/ro-cli/issues"
+	},
+	"homepage": "https://github.com/ronan-try/ro-cli#readme"
 }
