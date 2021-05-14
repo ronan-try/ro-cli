@@ -78,4 +78,11 @@ program
   .option('-m, --master', 'merge feature to master, build, push master')
   .action(() => require('../lib/pro-ng1')());
 
+program
+  .command('nginx')
+  .description('nginx start or stop')
+  .option('--start', 'nginx start')
+  .option('--stop', 'nginx start')
+  .action(() => require('../lib/cli-nginx'));
+
 program.parse(process.argv);
