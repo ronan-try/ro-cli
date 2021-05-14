@@ -35,7 +35,7 @@ async function openBroswerWithMrUrl (workPath, branchName) {
   if (originUrl.includes('github.com')) {
     url = `${originUrl}`.replace('.git', '/compare/main...' + originUrl.replace('https://github.com/', '').replace(/(\/(\S*))/, '') + ':' + branchName);
   } else if (originUrl.includes('gitee.com')) {
-    url = `${originUrl}`.replace('.git', '/compare/main...' + originUrl.replace('https://gitee.com/', '').replace(/(\/(\S*))/, '') + ':' + curLocalBranch);
+    url = `${originUrl}`.replace('.git', '/compare/main...' + originUrl.replace('https://gitee.com/', '').replace(/(\/(\S*))/, '') + ':' + branchName);
   }
 
   require('@ronan-try/cli-os-utils').openWithBrowser(url);
