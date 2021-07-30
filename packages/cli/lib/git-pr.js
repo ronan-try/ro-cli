@@ -4,7 +4,7 @@
  * win下无效，win自动根据文件类型调用解析器
  */
 
-// 交互模块    / / asdf
+// 交互模块
 const inquirer = require('inquirer');
 // tools
 const { textRedBright, textGreen, } = require('@ronan-try/cli-shared-utils')
@@ -12,10 +12,10 @@ const { logStep } = require('@ronan-try/cli-shared-utils');
 // service
 const { existGitRepo, gitBranchCurrent, gitLocalOriginURI, } = require('@ronan-try/cli-service');
 
-async function sureToMakeMRFromTheBranch (branchName) {
+async function sureToMakeMRForTheBranch (branchName) {
   const questions = [{
     type: 'confirm',
-    message: 'Sure to Make a MR/PR from the branch: ' + textGreen(branchName),
+    message: 'Sure to Make a MR/PR for the branch: ' + textGreen(branchName),
     name: 'yeah'
   }];
   const { yeah } = await inquirer.prompt(questions);
@@ -65,7 +65,7 @@ module.exports = async () => {
   logStep('step4: 当前branch是否为要MR的branch？');
   {
     const curBranchName = await gitBranchCurrent(curWorkPath);
-    const yeah = await sureToMakeMRFromTheBranch(curBranchName);
+    const yeah = await sureToMakeMRForTheBranch(curBranchName);
     if (yeah) {
       logStep('step5: 就是当前的branch，发起MR');
 
