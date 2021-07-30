@@ -9,15 +9,16 @@ const ora = require('ora');
 // 交互模块
 const inquirer = require('inquirer');
 // 文件模块
-const { textRed } = require('../cli-shared-utils/chalk');
-const { logStep } = require('../cli-shared-utils/logStep');
+const { logStep } = require('@ronan-try/cli-shared-utils');
 
 // 内部依赖
 /** cached project */
-const { cacheProjectsValid, cacheProjectRewrite } = require('../cli-services/cache');
-const __projects__ = cacheProjectsValid();
+const { getRawCacheData, toRewriteCacheData } = require('@ronan-try/cli-cache');
 
-(async () => {
+const CACHE_PROJECT_FILE_NAME = 'projects';
+const cacheProjects = getRawCacheData(CACHE_PROJECT_FILE_NAME);
+
+module.exports = async () => {
   logStep`step1: select such project`;
   const { selectedIdx, selectedProject } = await require('./inquirers/selectCacheProject')();
 
@@ -34,22 +35,23 @@ const __projects__ = cacheProjectsValid();
     }];
 
     const { inputSure } = await inquirer.prompt(questions);
-    inputSure && [].splice.call(__projects__, selectedIdx, 1);
+    inputSure && [].splice.call(cacheProjects, selectedIdx, 1);
 
     !inputSure && process.exit(1);
   }
 
   logStep`step3: write cache`;
   const spinner = ora('updating the projects cache file');
+  console.log();
   spinner.start();
 
-  await cacheProjectRewrite(__projects__);
+  await toRewriteCacheData(CACHE_PROJECT_FILE_NAME, cacheProjects);
 
   spinner.succeed();
 
 
   logStep`step4: show the cache projects`;
-  console.table(__projects__);
+  require('./db-pro-list')();
 
   logStep`the end`;
-})();
+};

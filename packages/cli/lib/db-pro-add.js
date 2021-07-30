@@ -12,11 +12,14 @@ const ora = require('ora');
 // 文件操作模块
 const fs = require('fs');
 // git 模块
-const { existsLocalGit } = require('../cli-services/git');
+const { existGitRepo } = require('@ronan-try/cli-service');
 // cache projects
-const { cacheProjects, cacheProjectRewrite } = require('../cli-services/cache');
+const { getRawCacheData, toRewriteCacheData } = require('@ronan-try/cli-cache');
 // asdf
-const { textRed } = require('../cli-shared-utils/chalk');
+const { textRed } = require('@ronan-try/cli-os-utils');
+
+const CACHE_PROJECT_FILE_NAME = 'projects';
+const cacheProjects = getRawCacheData(CACHE_PROJECT_FILE_NAME);
 
 // 定制问答
 let questions = [
@@ -45,7 +48,7 @@ let questions = [
       // Path 无效
       if (!fs.existsSync(str)) return textRed`not existed path`;
       // Path 无Git Repo
-      if (!await existsLocalGit(str)) return textRed`not existed git repo`;
+      if (!await existGitRepo(str)) return textRed`not existed git repo`;
 
       return true;
     }
@@ -60,30 +63,22 @@ let questions = [
       return true;
     }
   },
-  {
-    type: 'list',
-    message: 'What\'s the git plateform',
-    name: 'inputGitPlatform',
-    choices: Object.values(require('../cli-enums').GitPlatform),
-  }
 ];
 
-inquirer
-  .prompt(questions)
-  .then(async answers => {
-    // 获取问答内容
-    const { inputName, inputPath, inputTargetGit, inputGitPlatform } = answers;
+module.exports = async () => {
+  const { inputName, inputPath, inputTargetGit } = await inquirer.prompt(questions);
 
-    // 更新json
-    [].push.call(cacheProjects, {
-      projectName: inputName,
-      localPath: inputPath,
-      targetRepo: inputTargetGit,
-      gitPlatform: inputGitPlatform
-    });
-
-    const spinner = ora('写入中...');
-    spinner.start();
-    await cacheProjectRewrite(cacheProjects);
-    spinner.succeed('add successfully');
+  // 更新json
+  [].push.call(cacheProjects, {
+    projectName: inputName,
+    localPath: inputPath,
+    targetRepo: inputTargetGit,
   });
+
+  const spinner = ora('写入中...');
+  spinner.start();
+  await toRewriteCacheData(CACHE_PROJECT_FILE_NAME, cacheProjects);
+  spinner.succeed('add successfully');
+
+  console.log(111);
+}

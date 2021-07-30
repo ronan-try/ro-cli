@@ -14,22 +14,22 @@ program
 program
   .command('add')
   .description(`添加本地项目到Cli/ add project's local path`)
-  .action(() => require('../lib/pro-add')());
+  .action(() => require('../lib/db-pro-add')());
 
 program
   .command('list')
   .description('查看Cli所有本地项目/ table the cached projects')
-  .action(() => require('../lib/pro-list')());
+  .action(() => require('../lib/db-pro-list')());
 
 program
   .command('delete')
   .description(`删除Cli中的本地项目/ delete project's local path`)
-  .action(() => require('../lib/pro-del')());
+  .action(() => require('../lib/db-pro-del')());
 
 program
   .command('update')
   .description(`更新Cli中的本地项目/ update such project's config`)
-  .action(() => require('../lib/pro-update')());
+  .action(() => require('../lib/db-pro-update')());
 
 program
   .command('fork')
@@ -54,14 +54,14 @@ program
 program
   .command('start')
   .description('启动本地项目/ new terminal to start your project')
-  .action(() => require('../lib/pro-start')());
+  .action(() => require('../lib/cli-start')());
 
 program
   .command('open')
   .description('打开本地项目(-fd or -vs)/ open a project folder/vs code')
   .option('-fd, --folder', '使用资源目录打开/ open with folder')
   .option('-vs, --vscode', '使用VSCode打开/ open with vscode')
-  .action(() => require('../lib/pro-open')());
+  .action(() => require('../lib/cli-open')());
 
 program
   .command('diff <file-0> <file-1>', 'Compare two files with each other.');
@@ -76,7 +76,7 @@ program
   .description('ng1:本地打包test/master，发布test/master')
   .option('-t, --test', 'merge feature to test, build, push test')
   .option('-m, --master', 'merge feature to master, build, push master')
-  .action(() => require('../lib/pro-ng1')());
+  .action(() => require('../lib/cli-ng1')());
 
 program
   .command('nginx')
