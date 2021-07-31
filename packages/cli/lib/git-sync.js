@@ -5,31 +5,25 @@
  * win下无效，win自动根据文件类型调用解析器
  */
 
-const shelljs = require('shelljs');
 const ora = require('ora');
 // 交互模块
 const inquirer = require('inquirer');
 // 文件模块
-const { textCyan, textYellow, textGreen, textRed } = require('../cli-shared-utils/chalk');
-const { logStep } = require('../cli-shared-utils/logStep');
+const { textCyan, textYellow, textGreen, textRed, logStep } = require('@ronan-try/cli-shared-utils');
 const {
   gitBranchR,
   gitBranchLocal,
-  gitLocalOrigin,
+  gitLocalOriginURI,
   gitRemoteAdd,
   gitFetchRepo,
   gitRemoteRemove,
   gitCheckoutSpawn,
   gitMergeTargetToLocal,
-} = require('../cli-services/git');
+} = require('@ronan-try/cli-service');
 
-const { cacheProjectsValid } = require('../cli-services/cache');
-const { ConstName } = require('../cli-enums');
-const { ROCLIUPSTREAM } = ConstName;
+const { ROCLI_GIT_UPSTREAM } = require('@ronan-try/cli-const');
 
-(async () => {
-  const __projects__ = cacheProjectsValid();
-
+module.exports = async () => {
   logStep`step1: select project`;
   const { selectedProject } = await require('./inquirers/selectCacheProject')();
   const workspacePath = selectedProject.localPath;
@@ -37,34 +31,36 @@ const { ROCLIUPSTREAM } = ConstName;
   logStep`step2: confirm the 2 repo`;
   let repoTarget = selectedProject.targetRepo;
   {
-    const personalRepo = await gitLocalOrigin(workspacePath);
+    const personalRepo = await gitLocalOriginURI(workspacePath);
     const { inputIsPersonal, inputIsTarget } = await inquirer.prompt([
       {
         type: 'confirm',
         message: 'Is personal repo: ' + textCyan(personalRepo),
-        name: 'inputIsPersonal'
+        name: 'inputIsPersonal',
+        default: false,
       },
       {
         type: 'confirm',
         message: 'Is target repo: ' + textCyan(repoTarget),
-        name: 'inputIsTarget'
+        name: 'inputIsTarget',
+        default: false,
       }
     ]);
 
     if (!(inputIsPersonal && inputIsTarget)) {
       console.log();
       console.log(textYellow('repo 存在质疑，可通过\'ro update\' 更新'));
-      shelljs.exit(1);
+      process.exit(1);
     }
   }
 
   logStep`step3: confirm local branch`;
   let localBranch;
   {
-    const res = await gitBranchLocal(workspacePath);;
+    const res = await gitBranchLocal(workspacePath);
     if (res.code !== 0) {
       spinner.fail(res.stderr);
-      throw res.stderr && shelljs.exit(1);
+      throw res.stderr && process.exit(1);
     }
 
     const LocalBranches = [];
@@ -82,11 +78,11 @@ const { ROCLIUPSTREAM } = ConstName;
     localBranch = ''.replace.call(inputLocalBranch, '*','');
   }
 
-  logStep`step3: checkout local branch`;
+  logStep`step4: checkout local branch`;
   {
-    const res = await gitCheckoutSpawn(workspacePath, localBranch);
-    if (res.code !== 0) {
-      throw res.stderr && shelljs.exit(1);
+    const code = await gitCheckoutSpawn(workspacePath, localBranch);
+    if (code !== 0) {
+      throw process.exit(1);
     }
   }
 
@@ -94,26 +90,26 @@ const { ROCLIUPSTREAM } = ConstName;
   const spinnerFetch = ora('add && fetch target repo...');
   spinnerFetch.start();
 
-  logStep`step4: add upstream`;
+  logStep`step5: add upstream`;
   {
     await gitRemoteRemove(workspacePath);
 
     const res = await gitRemoteAdd(workspacePath, repoTarget);
     if (res.code !== 0 && !res.stderr.includes('already exists')) {
       spinnerFetch.fail(res.stderr);
-      throw res.stderr && shelljs.exit(1);
+      throw res.stderr && process.exit(1);
     }
 
     console.log();
     console.log(textCyan('successfully added target repo'));
   }
 
-  logStep`step4: fetch upstream`
+  logStep`step6: fetch upstream`
   {
-    const res = await gitFetchRepo(workspacePath, ROCLIUPSTREAM);
+    const res = await gitFetchRepo(workspacePath, ROCLI_GIT_UPSTREAM);
     if (res.code !== 0) {
       spinnerFetch.fail(res.stderr);
-      throw res.stderr && shelljs.exit(1);
+      throw res.stderr && process.exit(1);
     }
   }
   const TargetBranches = [];
@@ -121,17 +117,17 @@ const { ROCLIUPSTREAM } = ConstName;
     const res = await gitBranchR(workspacePath);;;
     if (res.code !== 0) {
       spinner.fail(res.stderr);
-      throw res.stderr && shelljs.exit(1);
+      throw res.stderr && process.exit(1);
     }
 
-    [].push.apply(TargetBranches, res.stdout.split('\n').map(i => i.trim()).filter(i => i.includes(ROCLIUPSTREAM)));
+    [].push.apply(TargetBranches, res.stdout.split('\n').map(i => i.trim()).filter(i => i.includes(ROCLI_GIT_UPSTREAM)));
 
-    console.log();
-    TargetBranches.forEach(i => console.log(textGreen(i)));
+    // console.log();
+    // TargetBranches.forEach(i => console.log(textGreen(i)));
   }
   spinnerFetch.succeed('git fetch successfully');
 
-  logStep`step6: select target branch to sync`;
+  logStep`step7: select target branch to sync`;
   let targetBranch;
   {
     const { inputTargetBranch } = await inquirer.prompt([{
@@ -146,11 +142,13 @@ const { ROCLIUPSTREAM } = ConstName;
   const spinnerFlow = ora('syncing...');
   spinnerFlow.start();
 
-  logStep`step7: syncing`;
+  logStep`step8: syncing`;
   {
-    const res = await gitMergeTargetToLocal(workspacePath, targetBranch);
-    if (res.code !== 0) {
-      throw res.stderr && shelljs.exit(1);
+    const code = await gitMergeTargetToLocal(workspacePath, targetBranch);
+
+    if (code !== 0) {
+      spinnerFlow.fail(textRed`expected result, 耐心阅读message，打开vscode自行解决`);
+      throw process.exit(1);
     }
 
     try {
@@ -161,11 +159,7 @@ const { ROCLIUPSTREAM } = ConstName;
       logStep`step7[unexpected]: git remote remove`;
     }
   }
-  spinnerFlow.succeed('successfully flow');
+  spinnerFlow.succeed('successfully');
 
-  // shelljs.exec('git log', { cwd: workspacePath });
-
-  require('../cli-lib/inquirers/openWithVSCode')(workspacePath);
-
-  // end
-})();
+  require('@ronan-try/cli-os-utils').openWithVSCode(workspacePath);
+};
