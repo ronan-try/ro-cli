@@ -6,28 +6,37 @@
  */
 
 // 交互模块
-const { program } = require('commander');
 
 // 内部依赖
-const { logStep } = require('../cli-shared-utils/logStep');
-const { openWithVsCode, openWithFolder } = require('../cli-editors/index');
+const { logStep } = require('@ronan-try/cli-shared-utils');
+const { openWithFolder, openWithVSCode } = require('@ronan-try/cli-os-utils');
+const inquirer = require('inquirer');
 
-(async () => {
-  program
-    .option('-fd, --folder', 'open with folder')
-    .option('-vs, --vscode', 'open with vscode');
-  program.parse(process.argv);
-
+module.exports = async () => {
   logStep`step1: select project`;
   const { selectedProject } = await require('./inquirers/selectCacheProject')();
 
-  logStep`step2: to open`;
+  logStep`step2: how to open`;
+  {
+    const ENUM_FUNS = [
+      { key:'vscode', fun: openWithVSCode },
+      { key:'folder', fun: openWithFolder },
+    ];
+    const questions = [{
+      type: 'list',
+      message: 'how to open with',
+      name: 'howToOpenWith',
+      choices: ENUM_FUNS.map(i => i.key),
+    }];
+    const { howToOpenWith } = await inquirer.prompt(questions);
+    console.log(howToOpenWith);
 
-  function toOpen () {
-    return program.folder ? openWithFolder : openWithVsCode;
+    const finded = ENUM_FUNS.find(i => i.key === howToOpenWith);
+    finded.fun(selectedProject.localPath);
+
+    console.log(selectedProject.localPath);
   }
 
-  toOpen()(selectedProject.localPath);
+  logStep`the end`;
 
-  // end
-})();
+};
