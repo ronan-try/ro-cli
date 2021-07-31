@@ -9,8 +9,7 @@ const ora = require('ora');
 // 交互模块
 const inquirer = require('inquirer');
 // tools
-const { textCyan, textYellow, textGreen } = require('@ronan-try/cli-shared-utils')
-const { logStep } = require('@ronan-try/cli-shared-utils');
+const { textCyan, textYellow, textGreen, logStep } = require('@ronan-try/cli-shared-utils')
 // service
 const {
   gitBranchR,
@@ -20,7 +19,7 @@ const {
   gitRemoteRemove,
   gitPushOriginU,
   gitCheckoutBSpawn
-} = require('@ronan-try/cli-service/cjs/git');
+} = require('@ronan-try/cli-service');
 // const
 const { ORIGIN_GIT_UPSTREAM, ROCLI_GIT_UPSTREAM } = require('@ronan-try/cli-const');
 
