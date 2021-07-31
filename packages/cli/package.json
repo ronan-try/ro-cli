@@ -10,7 +10,7 @@
     "git-flow"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "publish": "pnpm publish --access public"
   },
   "author": "Ronan",
   "license": "MIT",
