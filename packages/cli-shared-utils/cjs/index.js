@@ -3,6 +3,13 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var chalk = require('chalk');
+var shelljs = require('shelljs');
+var child_process = require('child_process');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var shelljs__default = /*#__PURE__*/_interopDefaultLegacy(shelljs);
+var child_process__default = /*#__PURE__*/_interopDefaultLegacy(child_process);
 
 const textRed = msg => chalk.red(msg);
 const textCyan = msg => chalk.cyan(msg);
@@ -38,7 +45,29 @@ const trimOnlyEnd = (str, chars) => {
 //   return result;
 // };
 
+const shellCd = fullPath => {
+  shelljs__default['default'].cd(fullPath);
+};
+const execAsync = async (path, cmd, silent = false) => new Promise(resolve => {
+  shelljs__default['default'].exec(cmd, {
+    cwd: path,
+    silent
+  }, (code, stdout, stderr) => resolve({
+    code,
+    stdout,
+    stderr
+  }));
+});
+const shellSpawn = (cmd, cwdPath) => child_process__default['default'].spawn(cmd, {
+  cwd: cwdPath,
+  shell: true,
+  stdio: 'inherit'
+});
+
+exports.execAsync = execAsync;
 exports.logStep = logStep;
+exports.shellCd = shellCd;
+exports.shellSpawn = shellSpawn;
 exports.textCyan = textCyan;
 exports.textCyanBright = textCyanBright;
 exports.textGray = textGray;
