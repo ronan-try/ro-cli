@@ -26,7 +26,7 @@
     "@ronan-try/cli-cache": "workspace:^1.0.0",
     "@ronan-try/cli-const": "workspace:^1.0.0",
     "@ronan-try/cli-os-utils": "workspace:^1.0.0",
-    "@ronan-try/cli-service": "workspace:^1.0.2",
+    "@ronan-try/cli-service": "workspace:^1.1.2",
     "@ronan-try/cli-shared-utils": "workspace:^1.1.1",
     "commander": "^7.2.0",
     "inquirer": "^8.0.0",

@@ -18,7 +18,7 @@ const {
   gitRemoteAdd,
   gitRemoteRemove,
   gitPushOriginU,
-  gitCheckoutBSpawn
+  gitCheckoutBSpawn,
 } = require('@ronan-try/cli-service');
 // const
 const { ORIGIN_GIT_UPSTREAM, ROCLI_GIT_UPSTREAM } = require('@ronan-try/cli-const');
@@ -88,10 +88,10 @@ module.exports = async () => {
   const TargetBranches = [];
   {
     const spinner = ora('get branch -v...');
-    console.log(selectedProject.localPath);
+    // console.log(selectedProject.localPath);
 
     const res = await gitBranchR(selectedProject.localPath);
-    console.log(res);
+    // console.log(res);
     if (res.code !== 0) {
       spinner.fail(res.stderr);
       throw res.stderr;
@@ -100,7 +100,7 @@ module.exports = async () => {
     [].push.apply(TargetBranches, res.stdout.split('\n').map(i => i.trim()).filter(i => i.includes(ROCLI_GIT_UPSTREAM)));
 
     console.log();
-    TargetBranches.forEach(i => console.log(textGreen(i)));
+    // TargetBranches.forEach(i => console.log(textGreen(i)));
     spinner.succeed();
   }
 
@@ -132,15 +132,30 @@ module.exports = async () => {
     theNewLocalBranch = inputLocalBranch;
   }
 
+  {
+    console.log();
+    console.log(textGreen`Branch Of The Target Repo: `, textYellow(theTargetBranch));
+    console.log(textGreen`Branch Of The Local Repo: `, textYellow(theNewLocalBranch));
+    console.log();
+
+    const questions = [
+      {
+        type: 'confirm',
+        message: 'Are u sure sure sure?',
+        name: 'confirmed',
+        default: false,
+      },
+    ];
+    const { confirmed } = await inquirer.prompt(questions);
+    if (confirmed !== true) return;
+  }
+
   logStep`step7: forking`;
   {
     const spinner = ora('foking ...');
     console.log();
     spinner.start();
 
-    console.log(textGreen(selectedProject.localPath));
-    console.log(textGreen(theNewLocalBranch));
-    console.log(textGreen(theTargetBranch));
     const res = await gitCheckoutBSpawn(selectedProject.localPath, theNewLocalBranch, theTargetBranch);
 
     if (res !== 0) {
