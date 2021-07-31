@@ -7,7 +7,7 @@
 
  const { getRawCacheData } = require('@ronan-try/cli-cache');
 
-const { textGray, textGreen } = require('@ronan-try/cli-shared-utils');
+const { textGray, textGreen, logStep } = require('@ronan-try/cli-shared-utils');
 
 const CACHE_PROJECT_FILE_NAME = 'projects';
 
@@ -20,7 +20,11 @@ function logProject (i) {
 }
 
 module.exports = () => {
+  console.log();
+  console.log(textGreen`最新项目集合：`);
+
   [].forEach.call(cacheProjects, (i) => {
     logProject(i);
   });
+  logStep`the end`;
 }

@@ -16,7 +16,7 @@ const { existGitRepo } = require('@ronan-try/cli-service');
 // cache projects
 const { getRawCacheData, toRewriteCacheData } = require('@ronan-try/cli-cache');
 // asdf
-const { textRed } = require('@ronan-try/cli-os-utils');
+const { textRed } = require('@ronan-try/cli-shared-utils');
 
 const CACHE_PROJECT_FILE_NAME = 'projects';
 const cacheProjects = getRawCacheData(CACHE_PROJECT_FILE_NAME);
@@ -80,5 +80,5 @@ module.exports = async () => {
   await toRewriteCacheData(CACHE_PROJECT_FILE_NAME, cacheProjects);
   spinner.succeed('add successfully');
 
-  console.log(111);
+  require('./db-pro-list')();
 }

@@ -14,7 +14,6 @@ const { logStep } = require('@ronan-try/cli-shared-utils');
 // 内部依赖
 /** cached project */
 const { getRawCacheData, toRewriteCacheData } = require('@ronan-try/cli-cache');
-
 const CACHE_PROJECT_FILE_NAME = 'projects';
 const cacheProjects = getRawCacheData(CACHE_PROJECT_FILE_NAME);
 
@@ -49,9 +48,5 @@ module.exports = async () => {
 
   spinner.succeed();
 
-
-  logStep`step4: show the cache projects`;
   require('./db-pro-list')();
-
-  logStep`the end`;
 };
