@@ -30,7 +30,7 @@ declare const gitBranchR: (workPath: string) => Promise<ShellExecResult>;
 /** 查看本地分支 */
 declare const gitBranchLocal: (workPath: string) => Promise<ShellExecResult>;
 /** shell Spawn 执行checkout */
-declare const gitCheckoutSpawn: (workPath: string, localBranch: string) => Promise<unknown>;
+declare const gitCheckoutSpawn: (workPath: string, localBranch: string) => Promise<number | string | null>;
 /** shell Spawn 执行checkout -b */
 declare const gitCheckoutBSpawn: (workPath: string, localBranch: string, targetBRanch: string) => Promise<unknown>;
 /** shell Spawn 执行git merge */
