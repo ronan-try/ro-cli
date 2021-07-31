@@ -14,7 +14,7 @@
   "main": "cjs/index.js",
   "typings": "es/index.d.ts",
   "scripts": {
-		"publish": "pnpm publish --access public",
+    "publish": "pnpm publish --access public",
     "build": "rollup -c ../scripts/rollup.config.js",
     "test": "jest"
   },
