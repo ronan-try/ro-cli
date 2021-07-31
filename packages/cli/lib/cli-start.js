@@ -5,30 +5,27 @@
  * win下无效，win自动根据文件类型调用解析器
  */
 
-const shelljs = require('shelljs');
-const spawn = require('../cli-shared-utils/spawn');
 // 交互模块
 const inquirer = require('inquirer');
-// 文件模块
-const { textRedBright } = require('../cli-shared-utils/chalk');
-const { gitBranchCurrent } = require('../cli-services/git');
 
-(async () => {
+const { textRedBright, shellSpawn } = require('@ronan-try/cli-shared-utils');
+const { gitBranchCurrent } = require('@ronan-try/cli-service');
+
+module.exports = async () => {
   const { selectedProject  } = await require('./inquirers/selectCacheProject')();
-  const inputVal = selectedProject.localPath;
+  const projectPath = selectedProject.localPath;
 
   // current git branch
-  const res = await gitBranchCurrent(inputVal);
-  if (res.code !== 0) throw res.stderr;
+  const branchName = await gitBranchCurrent(projectPath);
 
-  const { inputConfirm } = await inquirer.prompt([{
+  const { confirmed } = await inquirer.prompt([{
     type: 'confirm',
-    message: 'Are u sure the branch: ' + textRedBright(res.stdout),
-    name: 'inputConfirm'
+    message: 'Are u sure the branch: ' + textRedBright(branchName),
+    name: 'confirmed'
   }]);
 
-  if (!inputConfirm) return shelljs.exit(1);
+  if (!confirmed) return process.exit(1);
 
-  spawn('npm start', inputVal);
+  shellSpawn('npm start', projectPath);
   // end
-})();
+};
