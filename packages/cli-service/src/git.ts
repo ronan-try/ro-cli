@@ -54,7 +54,7 @@ export const gitBranchR = async (workPath: string) => factoryGitShell(workPath, 
 export const gitBranchLocal = async (workPath: string) => factoryGitShell(workPath, 'git branch',);
 
 /** shell Spawn 执行checkout */
-export const gitCheckoutSpawn = async (workPath: string, localBranch: string): Promise<number | string | null> => new Promise(resolve => {
+export const gitCheckoutSpawn = async (workPath: string, localBranch: string): Promise<number | null> => new Promise(resolve => {
   const sp = shellSpawn(`git checkout ${localBranch}`, workPath);
   sp.on('close', code => {
     resolve(code);
@@ -69,7 +69,7 @@ export const gitCheckoutBSpawn = async (workPath: string, localBranch: string, t
 });
 
 /** shell Spawn 执行git merge */
-export const gitMergeTargetToLocal = async (workPath: string, targetBranch: string) => new Promise(resolve => {
+export const gitMergeTargetToLocal = async (workPath: string, targetBranch: string): Promise<number | null> => new Promise(resolve => {
   const sp = shellSpawn(`git merge ${targetBranch}`, workPath);
   sp.on('close', code => {
     resolve(code);
