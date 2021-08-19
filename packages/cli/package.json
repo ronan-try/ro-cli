@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/ronan-try/ro-cli/issues"
   },
-  "homepage": "https://github.com/ronan-try/ro-cli#readme",
+  "homepage": "https://github.com/ronan-try/ro-cli/tree/main/packages/cli#readme",
   "dependencies": {
     "@ronan-try/cli-cache": "workspace:^1.0.0",
     "@ronan-try/cli-const": "workspace:^1.0.0",
