@@ -1,6 +1,6 @@
 {
 	"name": "@ronan-try/cli-service",
-	"version": "1.1.4",
+	"version": "1.1.5",
 	"description": "ro-cli do sm services",
 	"keywords": [
 		"ro-cli",
@@ -40,5 +40,5 @@
 	"bugs": {
 		"url": "https://github.com/ronan-try/ro-cli/issues"
 	},
-  "homepage": "https://github.com/ronan-try/ro-cli/tree/main/packages/cli-service#readme"
+	"homepage": "https://github.com/ronan-try/ro-cli/tree/main/packages/cli-service#readme"
 }
