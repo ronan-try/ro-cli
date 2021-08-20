@@ -1,6 +1,6 @@
 {
   "name": "@ronan-try/cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "personal work cli",
   "bin": {
     "ro": "bin/ro.js"
