@@ -16,7 +16,7 @@ const cacheProjects = getRawCacheData(CACHE_PROJECT_FILE_NAME);
 function logProject (i) {
   console.log();
   console.log(textGreen(i.projectName), ':', i.localPath);
-  console.log(textGray('git'), ':', textGray(i.targetRepo));
+  console.log(textGray('TargetGit'), ':', textGray(i.targetRepo));
 }
 
 module.exports = () => {
