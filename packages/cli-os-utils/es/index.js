@@ -32,7 +32,7 @@ function openWithFolder$2(fullPath = '.') {
 }
 
 function openWithBroswer(url) {
-  shelljs.exec(`start "${url}"`);
+  shelljs.exec(`start ${url}`);
 }
 function openWithVSCode$1(fullPath) {
   // to do

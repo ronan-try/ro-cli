@@ -9,7 +9,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var shelljs__default = /*#__PURE__*/_interopDefaultLegacy(shelljs);
 
 function openWithBroswer(url) {
-  shelljs__default['default'].exec(`start "${url}"`);
+  shelljs__default['default'].exec(`start ${url}`);
 }
 function openWithVSCode(fullPath) {
   // to do

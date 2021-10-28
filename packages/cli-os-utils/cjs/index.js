@@ -44,7 +44,7 @@ function openWithFolder$2(fullPath = '.') {
 }
 
 function openWithBroswer(url) {
-  shelljs__default['default'].exec(`start "${url}"`);
+  shelljs__default['default'].exec(`start ${url}`);
 }
 function openWithVSCode$1(fullPath) {
   // to do
