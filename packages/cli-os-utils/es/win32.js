@@ -1,7 +1,7 @@
 import shelljs from 'shelljs';
 
 function openWithBroswer(url) {
-  shelljs.exec('start ' + url);
+  shelljs.exec(`start "${url}"`);
 }
 function openWithVSCode(fullPath) {
   // to do
