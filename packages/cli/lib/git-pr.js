@@ -22,7 +22,7 @@ async function sureToMakeMRForTheBranch (branchName) {
   return yeah;
 }
 
-async function openBroswerWithMrUrl (workPath, branchName) {
+async function openBroswerWithMrUrl (workPath, branchName, targetBranch = 'master') {
   const originUrl = await gitLocalOriginURI(workPath);
   // 默认git地址
   let url = `${originUrl}`
@@ -34,8 +34,12 @@ async function openBroswerWithMrUrl (workPath, branchName) {
 
   if (originUrl.includes('github.com')) {
     url = `${originUrl}`.replace('.git', '/compare/main...' + originUrl.replace('https://github.com/', '').replace(/(\/(\S*))/, '') + ':' + branchName);
-  } else if (originUrl.includes('gitee.com')) {
+  }
+  if (originUrl.includes('gitee.com')) {
     url = `${originUrl}`.replace('.git', '/compare/main...' + originUrl.replace('https://gitee.com/', '').replace(/(\/(\S*))/, '') + ':' + branchName);
+  }
+  if (originUrl.includes('gitlab') && originUrl.includes('om.com')) {
+    url = url + '"&"merge_request%5Btarget_branch%5D=' + targetBranch;
   }
 
   require('@ronan-try/cli-os-utils').openWithBrowser(url);
