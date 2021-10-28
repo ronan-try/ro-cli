@@ -1,5 +1,9 @@
 # cli-ui
 
+
+## PNPM 遇到
+1. `Syntax Error: Error: No ESLint configuration found in D:\GitHub\ronan-try\ro-cli\packages\cli-const\cjs.`
+
 ## Project setup
 ```
 npm install

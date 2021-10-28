@@ -123,13 +123,11 @@
 
 <script>
 import { toRaw } from 'vue';
-import ws from '@/WSS';
-import Enums from '../../../../../cli-enums/index';
-import utilJSON from '../../../../../cli-shared-utils/utilJSON';
+// eslint-disable-next-line
+import wsInstance from '@/services/WSS.ts';
+import * as MsgType from '@ronan-try/cli-const/es/wsMessageType';
 
-const { toJSONString, toJSONParse } = utilJSON;
-const MsgType = Enums.WSMsgType;
-
+const { stringify: toJSONString, parse: toJSONParse } = JSON;
 export default {
   name: 'GitFork',
   data() {
@@ -160,54 +158,58 @@ export default {
   },
   mounted() {
     const handler = () => {
-      ws.send(toJSONString({ type: MsgType.cacheProjects }));
-      ws.onmessage = (event) => {
+      wsInstance.send(toJSONString({ type: MsgType.CACHE_PROJECTS }));
+      wsInstance.onmessage = (event) => {
         const objMsg = toJSONParse(event.data);
 
-        if (objMsg.type === MsgType.cacheProjects) {
+        if (objMsg.type === MsgType.CACHE_PROJECTS) {
           this.projects = objMsg.data;
-        } else if (objMsg.type === MsgType.addTargetUpstream) {
+        } else if (objMsg.type === MsgType.ADD_TARGET_UPSTREAM) {
           if (objMsg.data.success) {
             this.checkTarget = true;
-            ws.send(toJSONString({
-              type: MsgType.fetchRocliUpstream,
+            wsInstance.send(toJSONString({
+              type: MsgType.FETCH_ROCLI_UPSTREAM,
               data: toRaw(this.curProject),
             }));
           } else {
-            console.error('啊呀，坏了');
+            // eslint-disable-next-line
+            alert('呀001，出乎意料了，自行解决Terminal错误后，重新刷新一下页面');
           }
-        } else if (objMsg.type === MsgType.fetchRocliUpstream) {
+        } else if (objMsg.type === MsgType.FETCH_ROCLI_UPSTREAM) {
           if (objMsg.data.success) {
             this.checkFetch = true;
-            ws.send(toJSONString({
-              type: MsgType.gitBranchR,
+            wsInstance.send(toJSONString({
+              type: MsgType.GIT_BRANCH_R,
               data: toRaw(this.curProject),
             }));
           } else {
-            console.error('啊啊啊啊，坏了');
+            // eslint-disable-next-line
+            alert('呀002，出乎意料了，自行解决Terminal错误后，重新刷新一下页面');
           }
-        } else if (objMsg.type === MsgType.gitBranchR) {
+        } else if (objMsg.type === MsgType.GIT_BRANCH_R) {
           if (objMsg.data.success) {
             this.checkBranches = true;
             this.branches = objMsg.data.branches;
           } else {
-            console.error('啊啊啊啊， 坏了');
+            // eslint-disable-next-line
+            alert('呀003，出乎意料了，自行解决Terminal错误后，重新刷新一下页面');
           }
-        } else if (objMsg.type === MsgType.gitFork) {
+        } else if (objMsg.type === MsgType.GIT_FORK) {
           if (objMsg.data.success) {
             this.checkFork = true;
 
-            ws.send(toJSONString({
-              type: MsgType.gitTrack,
+            wsInstance.send(toJSONString({
+              type: MsgType.GIT_TRACK,
               data: {
                 project: toRaw(this.curProject),
                 localBranch: this.inputedLocalBranch,
               },
             }));
           } else {
-            console.error('啊啊啊啊啊，坏了');
+            // eslint-disable-next-line
+            alert('呀004，出乎意料了，自行解决Terminal错误后，重新fork一下');
           }
-        } else if (objMsg.type === MsgType.gitTrack) {
+        } else if (objMsg.type === MsgType.GIT_TRACK) {
           if (objMsg.data.success) {
             this.checkTrack = true;
             this.onOpenVSCode();
@@ -215,10 +217,11 @@ export default {
         }
       };
     };
-    if (ws.readyState === 1) {
+    console.log(wsInstance.readyState);
+    if (wsInstance.readyState === 1) {
       handler();
     } else {
-      ws.onopen = handler;
+      wsInstance.onopen = handler;
     }
   },
   methods: {
@@ -226,14 +229,14 @@ export default {
       this.checkGit = true;
       console.log(toRaw(this.curProject));
 
-      ws.send(toJSONString({
-        type: MsgType.addTargetUpstream,
+      wsInstance.send(toJSONString({
+        type: MsgType.ADD_TARGET_UPSTREAM,
         data: toRaw(this.curProject),
       }));
     },
     onForking() {
-      ws.send(toJSONString({
-        type: MsgType.gitFork,
+      wsInstance.send(toJSONString({
+        type: MsgType.GIT_FORK,
         data: {
           project: toRaw(this.curProject),
           localBranch: this.inputedLocalBranch,
@@ -242,14 +245,14 @@ export default {
       }));
     },
     onOpenVSCode() {
-      ws.send(toJSONString({
-        type: MsgType.openWithVSCode,
+      wsInstance.send(toJSONString({
+        type: MsgType.OPEN_WITH_VSCODE,
         data: toRaw(this.curProject),
       }));
     },
     onOpenFolder() {
-      ws.send(toJSONString({
-        type: MsgType.openWithFolder,
+      wsInstance.send(toJSONString({
+        type: MsgType.OPEN_WITH_FOLDER,
         data: toRaw(this.curProject),
       }));
     },

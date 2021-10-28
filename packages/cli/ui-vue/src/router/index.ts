@@ -26,9 +26,9 @@ export const routes: Array<RouteRecordRaw> = [
   //   component: () => import('../views/Import.vue'),
   // },
   {
-    path: '/gitflow',
-    name: 'GitFlow',
-    component: () => import('../views/GitFlow/index.vue'),
+    path: '/git',
+    name: 'git',
+    component: () => import('../views/Git/index.vue'),
   },
 ];
 

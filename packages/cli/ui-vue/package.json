@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm run serve",
+    "start": "pnpm run serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@ronan-try/cli-const": "workspace:^1.1.1",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.31",
     "vue": "^3.0.0",

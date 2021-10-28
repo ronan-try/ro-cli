@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/ronan-try/ro-cli/tree/main/packages/cli#readme",
   "dependencies": {
+    "@ronan-try/cli": "^1.0.3",
     "@ronan-try/cli-cache": "workspace:^1.0.2",
     "@ronan-try/cli-const": "workspace:^1.0.0",
     "@ronan-try/cli-os-utils": "workspace:^1.0.0",
@@ -31,6 +32,7 @@
     "commander": "^7.2.0",
     "inquirer": "^8.0.0",
     "ora": "^5.4.0",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "ws": "^8.2.0"
   }
 }

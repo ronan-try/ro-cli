@@ -12,39 +12,41 @@
 </template>
 
 <script>
-import ws from '@/WSS';
-import Enums from '../../../cli-enums/index';
-import utilJSON from '../../../cli-shared-utils/utilJSON';
+// import { ws } from '@ronan-try/cli-const';
 
-const { toJSONString, toJSONParse } = utilJSON;
-const MsgType = Enums.WSMsgType;
+// import ws from '@/WSS';
+// import Enums from '../../../cli-enums/index';
+// import utilJSON from '../../../cli-shared-utils/utilJSON';
 
-export default {
-  name: 'Projects',
-  data() {
-    return {
-      projects: [],
-    };
-  },
-  // created() {
-  //   // to do
-  // },
-  mounted() {
-    ws.onopen = () => {
-      ws.send(toJSONString({ type: MsgType.cacheProjects }));
-      ws.onmessage = (event) => {
-        const objMsg = toJSONParse(event.data);
+// const { toJSONString, toJSONParse } = utilJSON;
+// const MsgType = Enums.WSMsgType;
 
-        if (objMsg.type === MsgType.cacheProjects) {
-          this.projects = objMsg.data;
-        }
-      };
-    };
-  },
-  methods: {
-    shua() {
-      ws.send(toJSONString({ type: MsgType.cacheProjects }));
-    },
-  },
-};
+// export default {
+//   name: 'Projects',
+//   data() {
+//     return {
+//       projects: [],
+//     };
+//   },
+//   // created() {
+//   //   // to do
+//   // },
+//   mounted() {
+//     ws.onopen = () => {
+//       ws.send(toJSONString({ type: MsgType.cacheProjects }));
+//       ws.onmessage = (event) => {
+//         const objMsg = toJSONParse(event.data);
+
+//         if (objMsg.type === MsgType.cacheProjects) {
+//           this.projects = objMsg.data;
+//         }
+//       };
+//     };
+//   },
+//   methods: {
+//     shua() {
+//       ws.send(toJSONString({ type: MsgType.cacheProjects }));
+//     },
+//   },
+// };
 </script>

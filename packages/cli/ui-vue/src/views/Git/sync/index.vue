@@ -130,135 +130,135 @@
 </template>
 
 <script>
-import { toRaw } from 'vue';
-import ws from '@/WSS';
-import Enums from '../../../../../cli-enums/index';
-import utilJSON from '../../../../../cli-shared-utils/utilJSON';
+// import { toRaw } from 'vue';
+// // import ws from '@/WSS';
+// // import Enums from '../../../../../cli-enums/index';
+// // import utilJSON from '../../../../../cli-shared-utils/utilJSON';
 
-const { toJSONString, toJSONParse } = utilJSON;
-const MsgType = Enums.WSMsgType;
+// const { toJSONString, toJSONParse } = utilJSON;
+// const MsgType = Enums.WSMsgType;
 
-export default {
-  name: 'GitSync',
-  data() {
-    return {
-      mustInfos: [],
-      projects: [],
-      branches: [],
-      localBranches: [],
-      selectedProject: null,
-      selectedTargetBranch: null,
-      selectedLocalBranch: null,
-      checkGit: false,
-      checkTarget: false,
-      checkFetch: false,
-      checkBranches: false,
-      checkSync: false,
-    };
-  },
-  computed: {
-    curProject() {
-      if (!this.selectedProject) return null;
+// export default {
+//   name: 'GitSync',
+//   data() {
+//     return {
+//       mustInfos: [],
+//       projects: [],
+//       branches: [],
+//       localBranches: [],
+//       selectedProject: null,
+//       selectedTargetBranch: null,
+//       selectedLocalBranch: null,
+//       checkGit: false,
+//       checkTarget: false,
+//       checkFetch: false,
+//       checkBranches: false,
+//       checkSync: false,
+//     };
+//   },
+//   computed: {
+//     curProject() {
+//       if (!this.selectedProject) return null;
 
-      const finded = this.projects.find((i) => i.localPath === this.selectedProject);
-      console.log(finded);
-      console.log(finded.projectName);
-      return finded;
-    },
-  },
-  mounted() {
-    const handler = () => {
-      ws.send(toJSONString({ type: MsgType.cacheProjects }));
-      ws.onmessage = (event) => {
-        const objMsg = toJSONParse(event.data);
+//       const finded = this.projects.find((i) => i.localPath === this.selectedProject);
+//       console.log(finded);
+//       console.log(finded.projectName);
+//       return finded;
+//     },
+//   },
+//   mounted() {
+//     const handler = () => {
+//       ws.send(toJSONString({ type: MsgType.cacheProjects }));
+//       ws.onmessage = (event) => {
+//         const objMsg = toJSONParse(event.data);
 
-        if (objMsg.type === MsgType.cacheProjects) {
-          this.projects = objMsg.data;
-        } else if (objMsg.type === MsgType.addTargetUpstream) {
-          if (objMsg.data.success) {
-            this.checkTarget = true;
-            ws.send(toJSONString({
-              type: MsgType.fetchRocliUpstream,
-              data: toRaw(this.curProject),
-            }));
-          } else {
-            console.error('啊呀，坏了');
-          }
-        } else if (objMsg.type === MsgType.fetchRocliUpstream) {
-          if (objMsg.data.success) {
-            this.checkFetch = true;
-            ws.send(toJSONString({
-              type: MsgType.gitBranchR,
-              data: toRaw(this.curProject),
-            }));
-          } else {
-            console.error('啊啊啊啊，坏了');
-          }
-        } else if (objMsg.type === MsgType.gitBranchR) {
-          if (objMsg.data.success) {
-            this.checkBranches = true;
-            this.branches = objMsg.data.branches;
-            this.localBranches = objMsg.data.originBranches;
-          } else {
-            console.error('啊啊啊啊， 坏了');
-          }
-        } else if (objMsg.type === MsgType.gitSync) {
-          if (objMsg.data.success) {
-            this.checkSync = true;
-            this.onOpenVSCode();
-          }
-        }
-      };
-    };
-    if (ws.readyState === 1) {
-      handler();
-    } else {
-      ws.onopen = handler;
-    }
-  },
-  methods: {
-    checkGitRepo() {
-      this.checkGit = true;
-      console.log(toRaw(this.curProject));
+//         if (objMsg.type === MsgType.cacheProjects) {
+//           this.projects = objMsg.data;
+//         } else if (objMsg.type === MsgType.addTargetUpstream) {
+//           if (objMsg.data.success) {
+//             this.checkTarget = true;
+//             ws.send(toJSONString({
+//               type: MsgType.fetchRocliUpstream,
+//               data: toRaw(this.curProject),
+//             }));
+//           } else {
+//             console.error('啊呀，坏了');
+//           }
+//         } else if (objMsg.type === MsgType.fetchRocliUpstream) {
+//           if (objMsg.data.success) {
+//             this.checkFetch = true;
+//             ws.send(toJSONString({
+//               type: MsgType.gitBranchR,
+//               data: toRaw(this.curProject),
+//             }));
+//           } else {
+//             console.error('啊啊啊啊，坏了');
+//           }
+//         } else if (objMsg.type === MsgType.gitBranchR) {
+//           if (objMsg.data.success) {
+//             this.checkBranches = true;
+//             this.branches = objMsg.data.branches;
+//             this.localBranches = objMsg.data.originBranches;
+//           } else {
+//             console.error('啊啊啊啊， 坏了');
+//           }
+//         } else if (objMsg.type === MsgType.gitSync) {
+//           if (objMsg.data.success) {
+//             this.checkSync = true;
+//             this.onOpenVSCode();
+//           }
+//         }
+//       };
+//     };
+//     if (ws.readyState === 1) {
+//       handler();
+//     } else {
+//       ws.onopen = handler;
+//     }
+//   },
+//   methods: {
+//     checkGitRepo() {
+//       this.checkGit = true;
+//       console.log(toRaw(this.curProject));
 
-      ws.send(toJSONString({
-        type: MsgType.addTargetUpstream,
-        data: toRaw(this.curProject),
-      }));
-    },
-    onSyncing() {
-      ws.send(toJSONString({
-        type: MsgType.gitFork,
-        data: {
-          project: toRaw(this.curProject),
-          localBranch: this.inputedLocalBranch,
-          targetBranch: this.selectedTargetBranch,
-        },
-      }));
-    },
-    onOpenVSCode() {
-      ws.send(toJSONString({
-        type: MsgType.openWithVSCode,
-        data: toRaw(this.curProject),
-      }));
-    },
-    onOpenFolder() {
-      ws.send(toJSONString({
-        type: MsgType.openWithFolder,
-        data: toRaw(this.curProject),
-      }));
-    },
-    reSelectPro() {
-      this.checkGit = false;
-      this.checkGit = false;
-      this.checkTarget = false;
-      this.checkFetch = false;
-      this.checkBranches = false;
-      this.checkSync = false;
-      this.checkSync = false;
-    },
-  },
-};
+//       ws.send(toJSONString({
+//         type: MsgType.addTargetUpstream,
+//         data: toRaw(this.curProject),
+//       }));
+//     },
+//     onSyncing() {
+//       ws.send(toJSONString({
+//         type: MsgType.gitFork,
+//         data: {
+//           project: toRaw(this.curProject),
+//           localBranch: this.inputedLocalBranch,
+//           targetBranch: this.selectedTargetBranch,
+//         },
+//       }));
+//     },
+//     onOpenVSCode() {
+//       ws.send(toJSONString({
+//         type: MsgType.openWithVSCode,
+//         data: toRaw(this.curProject),
+//       }));
+//     },
+//     onOpenFolder() {
+//       ws.send(toJSONString({
+//         type: MsgType.openWithFolder,
+//         data: toRaw(this.curProject),
+//       }));
+//     },
+//     reSelectPro() {
+//       this.checkGit = false;
+//       this.checkGit = false;
+//       this.checkTarget = false;
+//       this.checkFetch = false;
+//       this.checkBranches = false;
+//       this.checkSync = false;
+//       this.checkSync = false;
+//     },
+//   },
+// };
 </script>
 
 <style>
