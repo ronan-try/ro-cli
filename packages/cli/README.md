@@ -7,6 +7,9 @@
 >> yeoman 启动长达>6s             
 >> 常规`commander` + `inquirer` 反应速度毫秒级
 
+## 2021-10-29
+1. 更新`ro fork` 和 `ro mr`, 便于直接向目标分支发起MR
+
 ## 功能概览
 
 Feature      |  Win32  |  macOS  |  Ubuntu | Desc 
