@@ -1,5 +1,19 @@
-# ro-cli-shared-utils
-参考 lodash，将函数体平铺
+# @ronan-try/cli-cache
+
+## 2021-10-29
+### 基础
+
+1. `getXXFullPath(cacheName)`: 根据cacheName 获取全路径
+2. `getRawCacheData(cacheName)`: 根据cacheName 获取全文件，使用`required`
+3. `toRewriteCacheData(cacheName, data)`: 根据cacheName 写入数据
+
+### 分支帮助类
+1. `BranchMap.getRaw()`  获取源文件
+1. `BranchMap.insertOrUpdate()` 插入或更新
+1. `BranchMap.getTargetBranch()` 获取目标分支
+1. `BranchMap.getTargetBranchByWorkPath()` 获取目标分支，根据workPath
+
+// history do not care
 
 ## 打包后的文件在哪儿找
 - umd (commjs, amd)，可以在`lib`文件夹中找到对应的
