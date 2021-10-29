@@ -35,14 +35,14 @@ module.exports = async () => {
     const questions = [
       {
         type: 'confirm',
-        default: false,
-        message: 'Is personal repo: ' + textCyan(personalRepo),
+        default: true,
+        message: 'Is personal repo/是这个私人仓库不: ' + textCyan(personalRepo),
         name: 'inputIsPersonal'
       },
       {
         type: 'confirm',
-        default: false,
-        message: 'Is target repo: ' + textCyan(selectedProject.targetRepo),
+        default: true,
+        message: 'Is target repo/是这个目标仓库不: ' + textCyan(selectedProject.targetRepo),
         name: 'inputIsTarget'
       }
     ];
@@ -105,18 +105,25 @@ module.exports = async () => {
   }
 
   logStep`step6: select to fork`;
-  let theTargetBranch, theNewLocalBranch;
+  /**
+   * 目标分支名
+   */
+  let theTargetBranch;
+  /**
+   * 本地分支名
+   */
+  let theNewLocalBranch;
   {
     const questions = [
       {
         type: 'list',
-        message: 'Which target branches: ',
+        message: 'Which the target branche/目标仓库分支是哪个: ',
         name: 'inputTargetBranch',
         choices: TargetBranches,
       },
       {
         type: 'input',
-        message: 'What\'s local branch name: ',
+        message: 'What\'s local branch name/新建本地分支叫啥名: ',
         name: 'inputLocalBranch',
         validate: (val) => {
           const str = `${val}`.trim();
@@ -141,9 +148,9 @@ module.exports = async () => {
     const questions = [
       {
         type: 'confirm',
-        message: 'Are u sure sure sure?',
+        message: 'Are u sure sure sure/确定 确定 是那个目标分支 & 这个本地分支了哈?',
         name: 'confirmed',
-        default: false,
+        default: true,
       },
     ];
     const { confirmed } = await inquirer.prompt(questions);
@@ -184,6 +191,13 @@ module.exports = async () => {
     }
 
     spinner.succeed();
+  }
+
+  {
+    // 写入缓存
+    try {
+      require('@ronan-try/cli-cache').BranchMap.insertOrUpdate(selectedProject.targetRepo, theNewLocalBranch, theTargetBranch.replace('ro_cli_upstream/', ''));
+    } catch (error) { }
   }
 
   logStep`step9: open with vscode`;
