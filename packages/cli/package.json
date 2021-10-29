@@ -1,38 +1,36 @@
 {
-  "name": "@ronan-try/cli",
-  "version": "1.0.3",
-  "description": "personal work cli",
-  "bin": {
-    "ro": "bin/ro.js"
-  },
-  "keywords": [
-    "git",
-    "git-flow"
-  ],
-  "scripts": {
-    "publish": "pnpm publish --access public"
-  },
-  "author": "Ronan",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ronan-try/ro-cli.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ronan-try/ro-cli/issues"
-  },
-  "homepage": "https://github.com/ronan-try/ro-cli/tree/main/packages/cli#readme",
-  "dependencies": {
-    "@ronan-try/cli": "^1.0.3",
-    "@ronan-try/cli-cache": "workspace:^1.0.5",
-    "@ronan-try/cli-const": "workspace:^1.0.0",
-    "@ronan-try/cli-os-utils": "workspace:^1.0.0",
-    "@ronan-try/cli-service": "workspace:^1.1.4",
-    "@ronan-try/cli-shared-utils": "workspace:^1.1.1",
-    "commander": "^7.2.0",
-    "inquirer": "^8.0.0",
-    "ora": "^5.4.0",
-    "shelljs": "^0.8.4",
-    "ws": "^8.2.0"
-  }
+	"name": "@ronan-try/cli",
+	"version": "1.0.4",
+	"description": "personal work cli",
+	"bin": {
+		"ro": "bin/ro.js"
+	},
+	"keywords": [
+		"git",
+		"git-flow"
+	],
+	"author": "Ronan",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ronan-try/ro-cli.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ronan-try/ro-cli/issues"
+	},
+	"homepage": "https://github.com/ronan-try/ro-cli/tree/main/packages/cli#readme",
+	"dependencies": {
+		"@ronan-try/cli": "^1.0.3",
+		"@ronan-try/cli-cache": "^1.0.5",
+		"@ronan-try/cli-const": "^1.0.0",
+		"@ronan-try/cli-os-utils": "^1.0.0",
+		"@ronan-try/cli-service": "^1.1.4",
+		"@ronan-try/cli-shared-utils": "^1.1.1",
+		"commander": "^7.2.0",
+		"inquirer": "^8.0.0",
+		"ora": "^5.4.0",
+		"shelljs": "^0.8.4",
+		"ws": "^8.2.0"
+	},
+	"scripts": {}
 }
