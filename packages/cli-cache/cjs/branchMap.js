@@ -68,6 +68,53 @@ const toRewriteCacheData = (cacheName, data) => new Promise(resolve => {
   });
 });
 
-exports.getRawCacheData = getRawCacheData;
-exports.getXXFullPath = getXXFullPath;
-exports.toRewriteCacheData = toRewriteCacheData;
+const CACHE_NAME = 'branchMap';
+class BranchMap {
+  static async write() {
+    await toRewriteCacheData(CACHE_NAME, this.raw);
+    return true;
+  }
+
+  static getRaw() {
+    this.raw = getRawCacheData(CACHE_NAME);
+    return this.raw;
+  }
+
+  static async insertOrUpdate(targetGit, localBranch, targetBranch) {
+    let curProject = this.getRaw().find(i => i.targetGit === targetGit); // 无当前项目配置
+
+    if (!curProject) {
+      curProject = {
+        targetGit,
+        map: [{
+          localBranch,
+          targetBranch
+        }]
+      };
+      this.raw.push(curProject);
+      return await this.write();
+    }
+
+    let curBranchInfo = curProject.map.find(i => i.localBranch === localBranch); // 无当前local分支信息
+
+    if (!curBranchInfo) {
+      curBranchInfo = {
+        localBranch,
+        targetBranch
+      };
+      curProject.map.push(curBranchInfo);
+      return await this.write();
+    }
+  }
+
+  static getTargetBranch(targetGit, localBranch) {
+    const curProject = this.getRaw().find(i => i.targetGit === targetGit);
+    if (!curProject) return false;
+    const curBranchInfo = curProject.map.find(i => i.localBranch === localBranch);
+    if (!curBranchInfo) return false;
+    return curBranchInfo.targetBranch;
+  }
+
+}
+
+exports.BranchMap = BranchMap;

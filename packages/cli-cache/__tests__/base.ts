@@ -1,4 +1,4 @@
-import { getRawCacheData } from '../index'
+import { getRawCacheData } from '../src/base';
 
 test('getRawCacheData:projects.cache.json', () => {
   const source = getRawCacheData('projects')
@@ -8,8 +8,6 @@ test('getRawCacheData:projects.cache.json', () => {
 
 test('读取branchMap缓存文件', () => {
   const source = getRawCacheData('branchMap');
-
-  console.log(typeof source, Object.prototype.toString.call(source));
 
   expect(Array.isArray(source)).toBe(true);
 });
