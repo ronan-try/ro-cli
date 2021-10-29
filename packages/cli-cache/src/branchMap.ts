@@ -48,4 +48,12 @@ export class BranchMap {
     return curBranchInfo.targetBranch;
   }
 
+  static getTargetBranchByWorkPath (workPath: string, localBranch: string): string | false {
+    const rawProjects = getRawCacheData('projects') as any[];
+    const curPro = rawProjects.find( i => i.localPath === workPath);
+    const targetGit = curPro.targetRepo;
+    
+    return this.getTargetBranch(targetGit, localBranch);
+  }
+
 }

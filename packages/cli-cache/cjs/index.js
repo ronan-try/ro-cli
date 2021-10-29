@@ -115,6 +115,13 @@ class BranchMap {
     return curBranchInfo.targetBranch;
   }
 
+  static getTargetBranchByWorkPath(workPath, localBranch) {
+    const rawProjects = getRawCacheData('projects');
+    const curPro = rawProjects.find(i => i.localPath === workPath);
+    const targetGit = curPro.targetRepo;
+    return this.getTargetBranch(targetGit, localBranch);
+  }
+
 }
 
 exports.BranchMap = BranchMap;

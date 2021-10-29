@@ -11,6 +11,7 @@ declare class BranchMap {
     static getRaw(): TypeBranchMap[];
     static insertOrUpdate(targetGit: string, localBranch: string, targetBranch: string): Promise<boolean | undefined>;
     static getTargetBranch(targetGit: string, localBranch: string): string | false;
+    static getTargetBranchByWorkPath(workPath: string, localBranch: string): string | false;
 }
 
 export { BranchMap, TypeBranchMap };
