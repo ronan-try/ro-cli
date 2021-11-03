@@ -5,11 +5,11 @@
  * win下无效，win自动根据文件类型调用解析器
  */
 
-const spawn = require('../cli-shared-utils/spawn');
+const spawn = require('@ronan-try/cli-shared-utils').shellSpawn; // require('../cli-shared-utils/spawn');
 const { resolve } = require('path');
 
 (async () => {
-  spawn('node ' + resolve(__dirname, '../cli-services/ws.js'));
-  spawn('node ' + resolve(__dirname, '../cli-services/ui.js'));
+  spawn('node ' + resolve(__dirname, '../cli-ui/ws.js'));
+  spawn('node ' + resolve(__dirname, '../cli-ui/ui.js'));
   // end
 })();
