@@ -48,11 +48,16 @@ function connected (wsInstance) {
         return sendMsg(WS_MSG_TYPE.ADD_TARGET_UPSTREAM, { success: true })
       }
 
+      // fetchRocliUpstream
       if (objmsg.type === WS_MSG_TYPE.FETCH_ROCLI_UPSTREAM) {
         const project = objmsg.data;
-        const res =  await gitFetchRepo(project.localPath, ROCLI_GIT_UPSTREAM);
-        
-        return sendMsg(WS_MSG_TYPE.FETCH_ROCLI_UPSTREAM, { success: res.code !== 0 })
+        const res = await gitFetchRepo(project.localPath, ROCLI_GIT_UPSTREAM);
+
+        console.log();
+        console.log('fetch upstream')
+        console.log(res);
+
+        return sendMsg(WS_MSG_TYPE.FETCH_ROCLI_UPSTREAM, { success: res.code === 0 })
       }
 
       if (objmsg.type === WS_MSG_TYPE.GIT_BRANCH_R) {
@@ -73,7 +78,13 @@ function connected (wsInstance) {
       // git fork
       if (objmsg.type === WS_MSG_TYPE.GIT_FORK) {
         const res = await gitCheckoutBSpawn(objmsg.data.project.localPath, objmsg.data.localBranch, objmsg.data.targetBranch);
-        return sendMsg(WS_MSG_TYPE.GIT_FORK, { success: res === 0})
+
+        // 缓存 fork分支信息
+        console.log();
+        console.log('cache branch info ', objmsg.data);
+        require('../../services/serviceGitFork').cacheBranchInfo(objmsg.data.project.targetRepo, objmsg.data.localBranch, objmsg.data.targetBranch);
+
+        return sendMsg(WS_MSG_TYPE.GIT_FORK, { success: res === 0 })
       }
 
       // git track

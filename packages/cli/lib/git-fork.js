@@ -193,12 +193,8 @@ module.exports = async () => {
     spinner.succeed();
   }
 
-  {
-    // 写入缓存
-    try {
-      require('@ronan-try/cli-cache').BranchMap.insertOrUpdate(selectedProject.targetRepo, theNewLocalBranch, theTargetBranch.replace('ro_cli_upstream/', ''));
-    } catch (error) { }
-  }
+  // 缓存 fork分支信息
+  require('../services/serviceGitFork').cacheBranchInfo(selectedProject.targetRepo, theNewLocalBranch, theTargetBranch);
 
   logStep`step9: open with vscode`;
   require('@ronan-try/cli-os-utils').openWithVSCode(selectedProject.localPath);
