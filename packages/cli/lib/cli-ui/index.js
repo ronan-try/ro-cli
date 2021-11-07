@@ -8,8 +8,8 @@
 const spawn = require('@ronan-try/cli-shared-utils').shellSpawn; // require('../cli-shared-utils/spawn');
 const { resolve } = require('path');
 
-(async () => {
+module.exports = async () => {
   spawn('node ' + resolve(__dirname, '../cli-ui/ws.js'));
   spawn('node ' + resolve(__dirname, '../cli-ui/ui.js'));
   // end
-})();
+};

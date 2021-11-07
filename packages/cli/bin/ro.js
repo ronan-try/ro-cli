@@ -73,7 +73,7 @@ program
 program
   .command('ui')
   .description('ui可视化点点点 // ui operation')
-  .action(() => require('../lib/git-ui')());
+  .action(() => require('../lib/cli-ui/index')());
 
 program
   .command('ng1')
